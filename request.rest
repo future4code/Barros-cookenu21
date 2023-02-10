@@ -1,0 +1,89 @@
+
+### Create a new User
+POST http://localhost:3003/user/create
+Content-Type: application/json
+
+{
+    "name":"Bianca Smith",
+    "email":"biancasmith@gmail.com",
+    "password": "1234567"
+}
+
+### Return post
+GET http://localhost:3003/post/getpost
+Content-Type: application/json
+
+{
+    "id":"1675379034720"
+}
+
+### Create a new Post
+POST http://localhost:3003/post/create
+Content-Type: application/json
+Authorization: 1675001631299
+
+{
+    "photo" : "Foto",
+    "description": "foto da viagem",
+    "type": "normal",
+    "createdAt": "08/02/2023"
+}
+
+### Create a new Friendship
+POST http://localhost:3003/friendship/create
+Content-Type: application/json
+Authorization: 1675001631299
+
+{
+    "friendId":"1675019596015"
+}
+
+### Delete Friendship
+DELETE http://localhost:3003/friendship
+Content-Type: application/json
+Authorization: 1675001631299
+
+{
+    "friendId":"1675019596015"
+}
+
+### Return Feeds freands
+GET http://localhost:3003/post/getfeedsfreands
+Content-Type: application/json
+Authorization: fde08a25-cb5c-4948-bb59-693eb726721d
+
+### return feed by type 
+GET http://localhost:3003/post/getfeeds
+Content-Type: application/json
+
+{
+    "type":"normal"
+}
+
+### Like Post
+POST http://localhost:3003/like/create
+Content-Type: application/json
+Authorization: 1675001631299
+
+{
+    "postId":"1675379034720"
+}
+
+### Delete Like Post
+DELETE  http://localhost:3003/like
+Content-Type: application/json
+Authorization: 1675001631299
+
+{
+    "postId":"1675379034720"
+}
+
+### Comment Post
+POST   http://localhost:3003/comments
+Content-Type: application/json
+Authorization: 1675001631299
+
+{
+    "comment":"Linda foto",
+    "postId":"1675379034720"
+}
