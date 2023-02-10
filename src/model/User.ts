@@ -29,4 +29,8 @@ export interface InputProfileDTO{
     name: string,
     email: string
  }
+export interface InputProfileUserDTO{
+    userId: string,
+    author: string
+ }
  
