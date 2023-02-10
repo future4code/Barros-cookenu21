@@ -12,12 +12,16 @@ export interface UserDTO{
     name: string,
     email: string,
     password: string
-    role: UserRole
+    role: string
  }
 export interface InputControllerDTO{
     name: string,
     email: string,
     password: string
     role: UserRole
+ }
+export interface InputControllerLoginDTO{
+    email: string,
+    password: string
  }
  

@@ -1,12 +1,22 @@
 
 ### Create a new User
-POST http://localhost:3003/user/create
+POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
     "name":"Bianca Smith",
     "email":"biancasmith@gmail.com",
-    "password": "1234567"
+    "password": "1234567",
+    "role": "ADMIN"
+}
+
+### Login User
+GET http://localhost:3003/user/login
+Content-Type: application/json
+
+{    
+    "email":"biancasmith@gmail.com",
+    "password": "1234567"   
 }
 
 ### Return post

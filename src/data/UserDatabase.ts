@@ -20,20 +20,15 @@ export class UserDatabase extends BaseDatabase {
     }
   };
 
-  findUser = async (): Promise<UserDTO[]> => {
+  findUser = async (email:string): Promise<UserDTO> => {
     try {
-      const users: UserDTO[] = [];
-
+      
       const result = await UserDatabase.connection
         .select("*")
-        .from(UserDatabase.TABLE_NAME);
-        
-
-      for (let user of result) {
-        users.push(user);
-      }
-
-      return users;
+        .from(UserDatabase.TABLE_NAME)
+        .where({email});
+       
+      return result[0];
 
     } catch (error: any) {
       throw new CustomError(400, error.message);

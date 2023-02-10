@@ -10,6 +10,7 @@ export class InvalidName extends CustomError{
     }
 }
 
+
 export class InvalidEmail extends CustomError{ 
     constructor(){
         super(400, "Email inválido")
@@ -36,5 +37,23 @@ export class UserNotFound extends CustomError{
 export class Unauthorized extends CustomError{ 
     constructor(){
         super(401, "Usuário não autorizado")
+    }
+}
+
+export class InvalidRole extends CustomError{ 
+    constructor(){
+        super(400, 'Fill in the "role" fields with "NORMAL" or "ADMIN"')
+    }
+}
+
+export class InvalidLogin extends CustomError{ 
+    constructor(){
+        super(400, 'Fill in the fields "email" e "password"')
+    }
+}
+
+export class InvalidLoginPassword extends CustomError{ 
+    constructor(){
+        super(400, "Invalid password/email")
     }
 }
