@@ -57,3 +57,8 @@ export class InvalidLoginPassword extends CustomError{
         super(400, "Invalid password/email")
     }
 }
+export class InvalidProfile extends CustomError{ 
+    constructor(){
+        super(400, "Invalid Authorization!")
+    }
+}

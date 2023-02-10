@@ -17,7 +17,7 @@ export class FriendshipBusiness {
         throw new Error("Fill in the friendId, authorId fields");
       }
 
-      const queryUser = await userDatabase.findUser();
+     /*  const queryUser = await userDatabase.findUser();
       const existFriend = queryUser.findIndex((user) => {
         return user.id === friendId;
       });
@@ -33,7 +33,7 @@ export class FriendshipBusiness {
       if (existauthorId === -1) {
         throw new Error("User id does not exist.");
       }
-
+ */
       const id: string = idGenerator.generateId();
       
       const queryResult: FriendshipInputDTO[] =
@@ -69,7 +69,7 @@ export class FriendshipBusiness {
         throw new Error("Fill in the friendId, authorId fields");
       }
 
-      const queryUser = await userDatabase.findUser();
+      /* const queryUser = await userDatabase.findUser();
       const existFriend = queryUser.findIndex((user) => {
         return user.id === friendId;
       });
@@ -84,7 +84,7 @@ export class FriendshipBusiness {
 
       if (existauthorId === -1) {
         throw new Error("User id does not exist.");
-      }
+      } */
 
       const queryResult: FriendshipInputDTO[] = await friendshipDatabase.findFriendship(authorId);
 

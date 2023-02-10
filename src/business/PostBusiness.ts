@@ -29,14 +29,14 @@ export class PostBusiness {
         );
       }
 
-      const queryUser = await userDatabase.findUser();
+     /*  const queryUser = await userDatabase.findUser();
       const existUser = queryUser.findIndex((user)=>{
         return user.id === authorId
       })
       
       if(existUser === -1){
         throw new Error("User id does not exist.")
-      } 
+      }  */
       
       const formatDate:any= dateFormat(createdAt.toString())
 
@@ -80,14 +80,14 @@ export class PostBusiness {
     try {
       const {id} = input;
             
-      const queryUser = await userDatabase.findUser();
+     /*  const queryUser = await userDatabase.findUser();
       const existUser = queryUser.findIndex((user)=>{
         return user.id === id
       })
       
       if(existUser === -1){
         throw new Error("User id does not exist.")
-      } 
+      }  */
 
       const queryFriends: FriendshipInputDTO[] = await friendshipDatabase.findFriendship(id);
       const existFriendship = queryFriends.findIndex((user) => {

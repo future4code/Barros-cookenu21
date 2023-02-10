@@ -19,6 +19,11 @@ Content-Type: application/json
     "password": "1234567"   
 }
 
+### Profile
+GET http://localhost:3003/user/profile
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA1MTEwNSwiZXhwIjoxNjc2MDU0NzA1fQ.uQ4TFK7KKG5YqUTupCSo655eAi3VuMQzA6sb4zxU6fA
+
 ### Return post
 GET http://localhost:3003/post/getpost
 Content-Type: application/json
@@ -27,10 +32,11 @@ Content-Type: application/json
     "id":"1675379034720"
 }
 
+
 ### Create a new Post
 POST http://localhost:3003/post/create
 Content-Type: application/json
-Authorization: 1675001631299
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA1MTEwNSwiZXhwIjoxNjc2MDU0NzA1fQ.uQ4TFK7KKG5YqUTupCSo655eAi3VuMQzA6sb4zxU6fA
 
 {
     "photo" : "Foto",

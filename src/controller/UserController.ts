@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { InputControllerDTO, InputControllerLoginDTO } from "../model/User";
+import { AuthenticationData, InputControllerDTO, InputControllerLoginDTO } from "../model/User";
 const userBusiness = new UserBusiness()
 
 export class UserController {
@@ -32,6 +32,19 @@ export class UserController {
       
       res.status(201).send({ access_token });
     } catch (error: any) {
+      res.status(400).send(error.message);
+    }
+
+  };
+  profile = async (req:Request,res:Response):Promise<void> => {
+    try {
+      const author:AuthenticationData = {
+        id: req.headers.authorization as string
+      }
+
+      const user = await userBusiness.profile(author)
+      res.status(201).send(user);
+    } catch (error:any) {
       res.status(400).send(error.message);
     }
 
