@@ -62,3 +62,8 @@ export class InvalidProfile extends CustomError{
         super(400, "Invalid Authorization!")
     }
 }
+export class InvalidProfileUser extends CustomError{ 
+    constructor(){
+        super(400, "Invalid Id User!")
+    }
+}

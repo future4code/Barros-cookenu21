@@ -4,10 +4,10 @@ POST http://localhost:3003/user/signup
 Content-Type: application/json
 
 {
-    "name":"Bianca Smith",
-    "email":"biancasmith@gmail.com",
+    "name":"Byron Smith",
+    "email":"byronsmith@gmail.com",
     "password": "1234567",
-    "role": "ADMIN"
+    "role": "NORMAL"
 }
 
 ### Login User
@@ -23,6 +23,11 @@ Content-Type: application/json
 GET http://localhost:3003/user/profile
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA1MTEwNSwiZXhwIjoxNjc2MDU0NzA1fQ.uQ4TFK7KKG5YqUTupCSo655eAi3VuMQzA6sb4zxU6fA
+
+### Profile User
+GET http://localhost:3003/user/69032ad3-fc60-444a-820f-b3b6d14f94d1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA3MDI3MiwiZXhwIjoxNjc2MDczODcyfQ.rZNZG5hSmEbZy4UQ_WE6QUKCRCpc7EBsqOXDHjfQvW4 
 
 ### Return post
 GET http://localhost:3003/post/getpost

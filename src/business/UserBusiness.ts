@@ -8,10 +8,11 @@ import {
   InvalidName,
   InvalidPassword,
   InvalidProfile,
+  InvalidProfileUser,
   InvalidRole,
   UserNotFound,
 } from "../error/customError";
-import { AuthenticationData, InputControllerDTO, InputControllerLoginDTO, InputProfileDTO } from "../model/User";
+import { AuthenticationData, InputControllerDTO, InputControllerLoginDTO, InputProfileDTO, InputProfileUserDTO } from "../model/User";
 import { HashManager } from "../service/HashManager";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
@@ -103,6 +104,30 @@ export class UserBusiness {
       }
       const userId = tokenGenerator.tokenData(input.id);
       const user = await userDatabase.profile(userId.id);
+      const resultUser:InputProfileDTO = {
+        id:user.id,
+        name:user.name,
+        email:user.email
+      }
+      return resultUser;
+    } catch (error:any) {
+      throw new CustomError(400, error.message);
+    }
+
+  };
+  profileUser = async (input:InputProfileUserDTO): Promise<InputProfileDTO> => {
+    try {
+       const {userId,author} = input;
+       
+      if(!userId || !author){
+        throw new InvalidProfile();
+      }
+      const tokenUser= tokenGenerator.tokenData(author);
+      const userToken = await userDatabase.profile(tokenUser.id);
+      const user = await userDatabase.profile(userId);
+      if(!user){
+        throw new InvalidProfileUser();
+      }
       const resultUser:InputProfileDTO = {
         id:user.id,
         name:user.name,

@@ -9,4 +9,5 @@ const userController = new UserController();
 userRouter.post('/signup', userController.createUser);
 userRouter.get('/login', userController.login);
 userRouter.get('/profile', userController.profile);
+userRouter.get('/:id', userController.profileUser);
 
