@@ -24,4 +24,9 @@ export interface InputControllerLoginDTO{
     email: string,
     password: string
  }
+export interface InputProfileDTO{
+    id: string,
+    name: string,
+    email: string
+ }
  

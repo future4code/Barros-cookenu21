@@ -1,5 +1,5 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { UserDTO } from "../model/User";
+import { InputProfileDTO, UserDTO } from "../model/User";
 import { CustomError } from "../error/customError";
 
 export class UserDatabase extends BaseDatabase {
@@ -27,6 +27,21 @@ export class UserDatabase extends BaseDatabase {
         .select("*")
         .from(UserDatabase.TABLE_NAME)
         .where({email});
+       
+      return result[0];
+
+    } catch (error: any) {
+      throw new CustomError(400, error.message);
+    }
+  };
+  
+  profile = async (input:string): Promise<InputProfileDTO> => {
+    try {
+      
+      const result = await UserDatabase.connection
+        .select("*")
+        .from(UserDatabase.TABLE_NAME)
+        .where({id:input});
        
       return result[0];
 

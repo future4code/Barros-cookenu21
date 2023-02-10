@@ -7,10 +7,11 @@ import {
   InvalidLoginPassword,
   InvalidName,
   InvalidPassword,
+  InvalidProfile,
   InvalidRole,
   UserNotFound,
 } from "../error/customError";
-import { InputControllerDTO, InputControllerLoginDTO } from "../model/User";
+import { AuthenticationData, InputControllerDTO, InputControllerLoginDTO, InputProfileDTO } from "../model/User";
 import { HashManager } from "../service/HashManager";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
@@ -95,6 +96,25 @@ export class UserBusiness {
       throw new CustomError(400, error.message);
     }
   };
+  profile = async (input:AuthenticationData): Promise<InputProfileDTO> => {
+    try {
+      if(!input){
+        throw new InvalidProfile();
+      }
+      const userId = tokenGenerator.tokenData(input.id);
+      const user = await userDatabase.profile(userId.id);
+      const resultUser:InputProfileDTO = {
+        id:user.id,
+        name:user.name,
+        email:user.email
+      }
+      return resultUser;
+    } catch (error:any) {
+      throw new CustomError(400, error.message);
+    }
+
+  };
+
   findUser = () => {};
   deleteUser = () => {};
 }
