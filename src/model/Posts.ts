@@ -14,7 +14,13 @@
     createdAt: Date,
     authorId: string
  }
- export interface FeedPostDBDTO{
+ export interface PostFindDTO{
+    id: string,
+    title: string,
+    description: string,
+    createdAt: string
+ }
+ export interface PostFindDBDTO{
     id: string,
     title: string,
     description: string,
@@ -35,4 +41,5 @@
 
  export interface PostIdDTO{
     id: string,
+    authorId: string
  }

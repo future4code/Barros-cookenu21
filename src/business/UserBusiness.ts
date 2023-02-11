@@ -1,18 +1,6 @@
 import { UserDatabase } from "../data/UserDatabase";
-import {
-  CustomError,
-  InvalidEmail,
-  InvalidEmailRegistered,
-  InvalidLogin,
-  InvalidLoginPassword,
-  InvalidName,
-  InvalidPassword,
-  InvalidProfile,
-  InvalidProfileUser,
-  InvalidRole,
-  UserNotFound,
-} from "../error/customError";
-import { AuthenticationData, InputControllerDTO, InputControllerLoginDTO, InputProfileDTO, InputProfileUserDTO } from "../model/User";
+import * as errors from "../error/customError";
+import * as userDTO from "../model/User";
 import { HashManager } from "../service/HashManager";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
@@ -22,29 +10,29 @@ const userDatabase = new UserDatabase();
 const hashManager = new HashManager();
 
 export class UserBusiness {
-  createUser = async (input: InputControllerDTO): Promise<string> => {
+  createUser = async (input: userDTO.InputControllerDTO): Promise<string> => {
     try {
       const { name, email, password, role } = input;
 
       if (!name || !email || !password || !role) {
-        throw new InvalidName();
+        throw new errors.InvalidName();
       }
 
       if (role != "ADMIN" && role != "NORMAL") {
-        throw new InvalidRole();
+        throw new errors.InvalidRole();
       }
 
       if (password.length < 6) {
-        throw new InvalidPassword();
+        throw new errors.InvalidPassword();
       }
 
       if (!email.includes("@")) {
-        throw new InvalidEmail();
+        throw new errors.InvalidEmail();
       }
 
       const userBase = await userDatabase.findUser(email);
       if (userBase) {
-        throw new InvalidEmailRegistered();
+        throw new errors.InvalidEmailRegistered();
       }
       const id: string = idGenerator.generateId();
       const hashPassword: string = await hashManager.generateHash(password);
@@ -60,26 +48,26 @@ export class UserBusiness {
       const token = tokenGenerator.generateToken(id);
       return token;
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
 
-  login = async (input: InputControllerLoginDTO): Promise<string> => {
+  login = async (input: userDTO.InputControllerLoginDTO): Promise<string> => {
     try {
       const { email, password } = input;
 
       if (!email || !password) {
-        throw new InvalidLogin();
+        throw new errors.InvalidLogin();
       }
 
       if (!email.includes("@")) {
-        throw new InvalidEmail();
+        throw new errors.InvalidEmail();
       }
 
       const user = await userDatabase.findUser(email);
 
       if (!user) {
-        throw new UserNotFound();
+        throw new errors.UserNotFound();
       }
 
       const compareResult: boolean = await hashManager.compareHash(
@@ -88,53 +76,53 @@ export class UserBusiness {
       );
 
       if (!compareResult) {
-        throw new InvalidLoginPassword();
+        throw new errors.InvalidLoginPassword();
       }
       const token = tokenGenerator.generateToken(user.id);
       return token;
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
-  profile = async (input:AuthenticationData): Promise<InputProfileDTO> => {
+  profile = async (input:userDTO.AuthenticationData): Promise<userDTO.InputProfileDTO> => {
     try {
       if(!input){
-        throw new InvalidProfile();
+        throw new errors.InvalidProfile();
       }
       const userId = tokenGenerator.tokenData(input.id);
       const user = await userDatabase.profile(userId.id);
-      const resultUser:InputProfileDTO = {
+      const resultUser:userDTO.InputProfileDTO = {
         id:user.id,
         name:user.name,
         email:user.email
       }
       return resultUser;
     } catch (error:any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
 
   };
-  profileUser = async (input:InputProfileUserDTO): Promise<InputProfileDTO> => {
+  profileUser = async (input:userDTO.InputProfileUserDTO): Promise<userDTO.InputProfileDTO> => {
     try {
        const {userId,author} = input;
        
       if(!userId || !author){
-        throw new InvalidProfile();
+        throw new errors.InvalidProfile();
       }
       const tokenUser= tokenGenerator.tokenData(author);
       const userToken = await userDatabase.profile(tokenUser.id);
       const user = await userDatabase.profile(userId);
       if(!user){
-        throw new InvalidProfileUser();
+        throw new errors.InvalidProfileUser();
       }
-      const resultUser:InputProfileDTO = {
+      const resultUser:userDTO.InputProfileDTO = {
         id:user.id,
         name:user.name,
         email:user.email
       }
       return resultUser;
     } catch (error:any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
 
   };

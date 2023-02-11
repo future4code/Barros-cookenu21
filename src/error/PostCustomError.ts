@@ -9,6 +9,16 @@ export class InvalidTitle extends CustomError{
         super(400, 'Fill in the fields title, description, authorId')
     }
 }
+export class InvalidFind extends CustomError{ 
+    constructor(){
+        super(400, 'Fill in the fields id, authorId')
+    }
+}
+export class InvalidFindPostId extends CustomError{ 
+    constructor(){
+        super(400, 'Recipe not found')
+    }
+}
 
 
 export class InvalidEmail extends CustomError{ 

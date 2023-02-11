@@ -1,10 +1,10 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { InputProfileDTO, UserDTO } from "../model/User";
+import * as userDTO from "../model/User";
 import { CustomError } from "../error/customError";
 
 export class UserDatabase extends BaseDatabase {
   private static TABLE_NAME = "cookenu_users";
-  insertUser = async (user: UserDTO): Promise<void> => {
+  insertUser = async (user: userDTO.UserDTO): Promise<void> => {
     try {
       await UserDatabase.connection
         .insert({
@@ -20,7 +20,7 @@ export class UserDatabase extends BaseDatabase {
     }
   };
 
-  findUser = async (email:string): Promise<UserDTO> => {
+  findUser = async (email:string): Promise<userDTO.UserDTO> => {
     try {
       
       const result = await UserDatabase.connection
@@ -35,7 +35,7 @@ export class UserDatabase extends BaseDatabase {
     }
   };
   
-  profile = async (input:string): Promise<InputProfileDTO> => {
+  profile = async (input:string): Promise<userDTO.InputProfileDTO> => {
     try {
       
       const result = await UserDatabase.connection

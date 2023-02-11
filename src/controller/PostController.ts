@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
-import { InpultPostDTO, PostIdDTO } from "../model/Posts";
 import * as postDTO from "../model/Posts";
 import { AuthenticationData } from "../model/User";
 
@@ -31,13 +30,17 @@ export class PostController {
 
   findPost = async (req: Request, res: Response): Promise<void> => {
     try {
-      const input: PostIdDTO = {
-        id: req.body.id
+      const author:AuthenticationData = {
+        id: req.headers.authorization as string
+      }
+      const input: postDTO.PostIdDTO = {
+        id: req.params.id,
+        authorId : author.id
       };
       
-      const posts = await postBusiness.findPost(input)
+      const post = await postBusiness.findPost(input)
 
-      res.status(200).send({ posts });
+      res.status(200).send( post );
     } catch (error: any) {
       res.status(400).send(error.message);
     }
@@ -45,8 +48,9 @@ export class PostController {
 
   feedPost = async(req: Request, res: Response) => {
     try {
-      const input: PostIdDTO = {
-        id: req.headers.authorization as string
+      const input: postDTO.PostIdDTO = {
+        id: req.headers.authorization as string,
+        authorId:""
       };
       
       const posts = await postBusiness.feedPost(input)
