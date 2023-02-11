@@ -3,9 +3,8 @@ import { PostDatabase } from "../data/PostDatabase";
 import { UserDatabase } from "../data/UserDatabase";
 import * as erros from "../error/PostCustomError";
 import { FriendshipInputDTO } from "../model/Friendship";
-import { FeedPostDBDTO, FeedPostDTO, PostIdDTO, TPost } from "../model/Posts";
 import * as postDTO from "../model/Posts";
-import { dateFormat, dateFormatBr } from "../service/formatDate";
+import { dateFormatBr } from "../service/formatDate";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
 
@@ -38,27 +37,36 @@ export class PostBusiness {
     }
   };
 
-  findPost = async(input:PostIdDTO):Promise<TPost[]>=> {
+  findPost = async(input:postDTO.PostIdDTO):Promise<postDTO.PostFindDTO>=> {
     try {
 
-      const { id } = input;
-
-      if(!id){
-        throw new Error('Pass the id params');
+      const { id, authorId } = input;
+            
+      if(!id || !authorId) {
+        throw new erros.InvalidFind();
       }
-
-      const result:TPost[] = await postDatabase.findPost(id)
+      const userId = tokenGenerator.tokenData(authorId);
+      const result:postDTO.PostFindDBDTO[] = await postDatabase.findPost(id)
+      const formatDate = dateFormatBr(result[0].created_at.toString())
+    
       if (!result[0]) {
-        throw new Error("Post not found");
+        throw new erros.InvalidFindPostId();
      }
-     return result;
+     const post:postDTO.PostFindDTO = {
+      id: result[0].id,
+      title: result[0].title,
+      description: result[0].description,
+      createdAt: formatDate
+     }
+
+     return post;
 
     } catch (error:any) {
-      throw new Error(error.message)
+      throw new erros.CustomError(400, error.message);
     }
   };
 
-  feedPost = async(input:PostIdDTO):Promise<FeedPostDTO[]> => {
+  feedPost = async(input:postDTO.PostIdDTO):Promise<postDTO.FeedPostDTO[]> => {
     try {
       const {id} = input;
             
@@ -85,8 +93,8 @@ export class PostBusiness {
       for (let i = 0; i < queryFriends.length; i++) {
          friends.push(queryFriends[i].friend_id);        
       }
-      const posts: FeedPostDTO[] = [];     
-      const result:FeedPostDBDTO[] = await postDatabase.feedPost(friends)
+      const posts: postDTO.FeedPostDTO[] = [];     
+      const result:postDTO.PostFindDBDTO[] = await postDatabase.feedPost(friends)
       result.map((item:any)=>{
         item.created_at = dateFormatBr(item.created_at.toString())
         return result
@@ -116,8 +124,8 @@ export class PostBusiness {
           'Fill in the field type: normal or event'
         );
       }      
-      const posts: FeedPostDTO[] = [];  
-      const result:FeedPostDBDTO[] = await postDatabase.feedPostAll(input)
+      const posts: postDTO.FeedPostDTO[] = [];  
+      const result:postDTO.PostFindDBDTO[] = await postDatabase.feedPostAll(input)
       result.map((item:any)=>{
         item.created_at = dateFormatBr(item.created_at.toString())
         return result

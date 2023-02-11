@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { AuthenticationData, InputControllerDTO, InputControllerLoginDTO, InputProfileUserDTO } from "../model/User";
+import * as userDTO from "../model/User";
 const userBusiness = new UserBusiness()
 
 export class UserController {
   createUser = async (req: Request, res: Response): Promise<void> => {
     try {
-      const input: InputControllerDTO = {
+      const input: userDTO.InputControllerDTO = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
@@ -23,7 +23,7 @@ export class UserController {
 
   login = async (req: Request, res: Response):Promise<void> => {
     try{
-    const input: InputControllerLoginDTO = {
+    const input: userDTO.InputControllerLoginDTO = {
       email: req.body.email,
       password: req.body.password
     }
@@ -38,7 +38,7 @@ export class UserController {
   };
   profile = async (req:Request,res:Response):Promise<void> => {
     try {
-      const author:AuthenticationData = {
+      const author:userDTO.AuthenticationData = {
         id: req.headers.authorization as string
       }
 
@@ -51,7 +51,7 @@ export class UserController {
   };
   profileUser = async (req:Request,res:Response):Promise<void> => {
     try {
-      const input:InputProfileUserDTO = {
+      const input:userDTO.InputProfileUserDTO = {
         userId:req.params.id,
         author:req.headers.authorization as string
       }

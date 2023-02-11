@@ -1,5 +1,4 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { FeedPostDBDTO, InpultDBDTO, InpultPostDTO, TPost } from "../model/Posts";
 import * as erros from "../error/PostCustomError";
 import * as postDTO from "../model/Posts";
 
@@ -20,7 +19,7 @@ export class PostDatabase extends BaseDatabase {
     }
   };
 
-  findPost = async (postid: string): Promise<TPost[]> => {
+  findPost = async (postid: string): Promise<postDTO.PostFindDBDTO[]> => {
     try {
             
       const result = await PostDatabase.connection
@@ -30,11 +29,11 @@ export class PostDatabase extends BaseDatabase {
       
       return result;
     } catch (error: any) {
-      throw new Error(error.message);
+      throw new erros.CustomError(400, error.message);
     }
   };
 
-  feedPost = async (input: string[]): Promise<FeedPostDBDTO[]> => {
+  feedPost = async (input: string[]): Promise<postDTO.PostFindDBDTO[]> => {
     try {
       const [result] = await PostDatabase.connection.raw(
         `select * from ${PostDatabase.TABLE_NAME} where author_id in ('${input}') order by created_at desc;`
@@ -45,7 +44,7 @@ export class PostDatabase extends BaseDatabase {
     }
   };
 
-  feedPostAll = async (input: string): Promise<FeedPostDBDTO[]> => {
+  feedPostAll = async (input: string): Promise<postDTO.PostFindDBDTO[]> => {
     try {
       const [result] = await PostDatabase.connection.raw(
         `select * from ${PostDatabase.TABLE_NAME} where type = "${input}" order by created_at desc;`
