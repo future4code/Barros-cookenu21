@@ -1,58 +1,40 @@
 import { FriendshipDatabase } from "../data/FriendshipDatabase";
 import { PostDatabase } from "../data/PostDatabase";
 import { UserDatabase } from "../data/UserDatabase";
+import * as erros from "../error/PostCustomError";
 import { FriendshipInputDTO } from "../model/Friendship";
-import { FeedPostDBDTO, FeedPostDTO, InpultPostDTO, PostIdDTO, PostTypeDTO, TPost } from "../model/Posts";
+import { FeedPostDBDTO, FeedPostDTO, PostIdDTO, TPost } from "../model/Posts";
+import * as postDTO from "../model/Posts";
 import { dateFormat, dateFormatBr } from "../service/formatDate";
 import { IdGenerator } from "../service/IdGenerator";
+import { TokenGenerator } from "../service/TokenGenerator";
 
 const postDatabase = new PostDatabase();
 const userDatabase = new UserDatabase();
 const friendshipDatabase = new FriendshipDatabase();
 const  idGenerator = new IdGenerator();
+const tokenGenerator = new TokenGenerator();
 
 export class PostBusiness {
-  createPost = async (input: InpultPostDTO): Promise<void> => {
+  createPost = async (input: postDTO.InpultPostDTO): Promise<void> => {
     try {
-      const { photo, description, type, createdAt, authorId } = input;
+      const { title, description, authorId } = input;
 
-      if (!photo || !description || !type || !createdAt || !authorId) {
-        throw new Error(
-          'Fill in the fields photo, description, type, authorId'
-        );
-      }
-           
-
-      if(type.toUpperCase() !== "normal".toUpperCase() && type.toUpperCase() !== "event".toUpperCase()){
-        throw new Error(
-          'Fill in the fields type: normal or event'
-        );
-      }
-
-     /*  const queryUser = await userDatabase.findUser();
-      const existUser = queryUser.findIndex((user)=>{
-        return user.id === authorId
-      })
-      
-      if(existUser === -1){
-        throw new Error("User id does not exist.")
-      }  */
-      
-      const formatDate:any= dateFormat(createdAt.toString())
-
+      if (!title || !description || !authorId) {
+        throw new erros.InvalidTitle();
+      }      
+      const userId = tokenGenerator.tokenData(authorId);       
       const id: string = idGenerator.generateId();
 
       await postDatabase.insertPost({
         id, 
-        photo, 
+        title, 
         description, 
-        type, 
-        createdAt:formatDate, 
-        authorId
+        authorId:userId.id
       })
     
     } catch (error:any) {
-        throw new Error(error.message)
+      throw new erros.CustomError(400, error.message);
     }
   };
 
@@ -112,9 +94,8 @@ export class PostBusiness {
       for (let i = 0; i < result.length; i++) {
         posts.push({
           id: result[i].id,
-          photo: result[i].photo,
+          title: result[i].title,
           description: result[i].description,
-          type: result[i].type,
           createdAt: result[i].created_at,
           authorId: result[i].author_id}
         )
@@ -126,12 +107,11 @@ export class PostBusiness {
       throw new Error(error.message)
     }
   };
-  feedPostAll = async(input:PostTypeDTO) => {
+  feedPostAll = async(input:string) => {
     try {
       
-      const{type} = input;
-
-      if(type.toUpperCase() !== "normal".toUpperCase() && type.toUpperCase() !== "event".toUpperCase()){
+      
+      if(input.toUpperCase() !== "normal".toUpperCase() && input.toUpperCase() !== "event".toUpperCase()){
         throw new Error(
           'Fill in the field type: normal or event'
         );
@@ -146,9 +126,8 @@ export class PostBusiness {
       for (let i = 0; i < result.length; i++) {
         posts.push({
           id: result[i].id,
-          photo: result[i].photo,
+          title: result[i].title,
           description: result[i].description,
-          type: result[i].type,
           createdAt: result[i].created_at,
           authorId: result[i].author_id}
         )

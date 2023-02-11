@@ -1,22 +1,22 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { FeedPostDBDTO, PostTypeDTO, TPost } from "../model/Posts";
+import { FeedPostDBDTO, InpultDBDTO, InpultPostDTO, TPost } from "../model/Posts";
+import * as erros from "../error/PostCustomError";
+import * as postDTO from "../model/Posts";
 
 export class PostDatabase extends BaseDatabase {
-  private static TABLE_NAME = "labook_posts";
-  insertPost = async (post: TPost): Promise<void> => {
+  private static TABLE_NAME = "cookenu_recipe";
+  insertPost = async (post: postDTO.InpultDBDTO): Promise<void> => {
     try {
       await PostDatabase.connection
         .insert({
           id: post.id,
-          photo: post.photo,
+          title: post.title,
           description: post.description,
-          type: post.type,
-          created_at: post.createdAt,
           author_id: post.authorId,
         })
         .into(PostDatabase.TABLE_NAME);
     } catch (error: any) {
-      throw new Error(error.message);
+      throw new erros.CustomError(400, error.message);
     }
   };
 
@@ -45,10 +45,10 @@ export class PostDatabase extends BaseDatabase {
     }
   };
 
-  feedPostAll = async (input: PostTypeDTO): Promise<FeedPostDBDTO[]> => {
+  feedPostAll = async (input: string): Promise<FeedPostDBDTO[]> => {
     try {
       const [result] = await PostDatabase.connection.raw(
-        `select * from ${PostDatabase.TABLE_NAME} where type = "${input.type}" order by created_at desc;`
+        `select * from ${PostDatabase.TABLE_NAME} where type = "${input}" order by created_at desc;`
       );
       return result;
     } catch (error: any) {

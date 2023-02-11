@@ -91,7 +91,6 @@ export class UserBusiness {
         throw new InvalidLoginPassword();
       }
       const token = tokenGenerator.generateToken(user.id);
-      console.log(token);
       return token;
     } catch (error: any) {
       throw new CustomError(400, error.message);
