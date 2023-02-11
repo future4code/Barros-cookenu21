@@ -5,8 +5,10 @@ import { friendshipRouter } from "./controller/router/FriendshipRouter"
 
 
 /**************************** ENDPOINTS ******************************/
-app.use('/user', userRouter)
-app.use('/post', postRouter);
+app.use('/signup', userRouter);
+app.use('/login', userRouter);
+app.use('/user', userRouter);
+app.use('/recipe', postRouter);
 app.use('/friendship', friendshipRouter);
 
 

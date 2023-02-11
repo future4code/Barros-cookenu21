@@ -6,8 +6,8 @@ export const postRouter = express.Router()
 
 const postController = new PostController();
 
-postRouter.post('/create',postController.createPost);
+postRouter.post('/',postController.createPost);
 postRouter.get('/getpost',postController.findPost);
 postRouter.get('/getfeedsfreands',postController.feedPost);
-postRouter.get('/getfeeds',postController.feedPostAll);
+
 

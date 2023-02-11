@@ -1,23 +1,29 @@
 import { Request, Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
-import { InpultPostDTO, PostIdDTO, PostTypeDTO } from "../model/Posts";
+import { InpultPostDTO, PostIdDTO } from "../model/Posts";
+import * as postDTO from "../model/Posts";
+import { AuthenticationData } from "../model/User";
 
 const postBusiness = new PostBusiness()
 
 export class PostController {
   createPost = async (req: Request, res: Response): Promise<void> => {
     try {
-      const input: InpultPostDTO = {
-        photo: req.body.photo, 
-        description:req.body.description, 
-        type: req.body.type, 
-        createdAt: req.body.createdAt, 
-        authorId: req.headers.authorization as string
+      const author:AuthenticationData = {
+        id: req.headers.authorization as string
+      }
+      
+      const input: postDTO.InpultPostDTO = {
+        title: req.body.title, 
+        description:req.body.description,
+        authorId : author.id
       };
+
+      
 
       await postBusiness.createPost(input)
 
-      res.status(201).send({ message: "Post created!" });
+      res.status(201).send({ message: "Recipe created!" });
     } catch (error: any) {
       res.status(400).send(error.message);
     }
@@ -51,7 +57,7 @@ export class PostController {
     }
   };
 
-  feedPostAll = async(req: Request, res: Response) => {
+  /* feedPostAll = async(req: Request, res: Response) => {
     try {
       const input: PostTypeDTO = {
         type: req.body.type
@@ -63,7 +69,7 @@ export class PostController {
     } catch (error: any) {
       res.status(400).send(error.message);
     }
-  };
+  }; */
   deletePost = () => {};
   
 }

@@ -1,17 +1,17 @@
 
 ### Create a new User
-POST http://localhost:3003/user/signup
+POST http://localhost:3003/signup
 Content-Type: application/json
 
 {
-    "name":"Byron Smith",
-    "email":"byronsmith@gmail.com",
+    "name":"Breno Smith",
+    "email":"brenosmith@gmail.com",
     "password": "1234567",
     "role": "NORMAL"
 }
 
 ### Login User
-GET http://localhost:3003/user/login
+GET http://localhost:3003/login
 Content-Type: application/json
 
 {    
@@ -27,27 +27,16 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
 ### Profile User
 GET http://localhost:3003/user/69032ad3-fc60-444a-820f-b3b6d14f94d1
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA3MDI3MiwiZXhwIjoxNjc2MDczODcyfQ.rZNZG5hSmEbZy4UQ_WE6QUKCRCpc7EBsqOXDHjfQvW4 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjEwODM5NCwiZXhwIjoxNjc2MTExOTk0fQ.76hjG8EMR8M8DiJLrQMrpC-O2ugneTgIoPHcvcKiiJ0
 
-### Return post
-GET http://localhost:3003/post/getpost
+### Create recipe
+POST http://localhost:3003/recipe
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjExNzgzMSwiZXhwIjoxNjc2MTIxNDMxfQ.sEd6-FLeUexRyy-iigwCp2D2fZnOvUvwFvAizx9n4ng
 
 {
-    "id":"1675379034720"
-}
-
-
-### Create a new Post
-POST http://localhost:3003/post/create
-Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA1MTEwNSwiZXhwIjoxNjc2MDU0NzA1fQ.uQ4TFK7KKG5YqUTupCSo655eAi3VuMQzA6sb4zxU6fA
-
-{
-    "photo" : "Foto",
-    "description": "foto da viagem",
-    "type": "normal",
-    "createdAt": "08/02/2023"
+	"title": "BOLO DE MACAXEIRA SIMPLES",
+	"description": "2 kg de macaxeira ralada, 6 ovos, 6 xícaras de açúcar, 6 colheres bem generosa de manteiga, 200 g de coco ralado, 1 pitada de sal, 1 colher de fermento"
 }
 
 ### Create a new Friendship

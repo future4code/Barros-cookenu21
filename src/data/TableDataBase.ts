@@ -14,6 +14,7 @@ export class Migration extends BaseDatabase {
         );     
         CREATE TABLE IF NOT EXISTS cookenu_recipe(
            id VARCHAR(255) PRIMARY KEY NOT NULL,
+           title VARCHAR(255) NOT NULL,
            description VARCHAR(255) NOT NULL,
            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
            author_id VARCHAR(255) NOT NULL,
