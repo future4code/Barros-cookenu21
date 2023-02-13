@@ -1,16 +1,17 @@
-import { FriendshipDatabase } from "../data/FriendshipDatabase";
+
 import { PostDatabase } from "../data/PostDatabase";
 import { UserDatabase } from "../data/UserDatabase";
 import * as erros from "../error/PostCustomError";
-import { FriendshipInputDTO } from "../model/Friendship";
 import * as postDTO from "../model/Posts";
+import * as followDTO from "../model/Follow";
 import { dateFormatBr } from "../service/formatDate";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
+import { FollowDatabase } from "../data/FollowDatabase";
 
 const postDatabase = new PostDatabase();
 const userDatabase = new UserDatabase();
-const friendshipDatabase = new FriendshipDatabase();
+const followDatabase = new FollowDatabase();
 const  idGenerator = new IdGenerator();
 const tokenGenerator = new TokenGenerator();
 
@@ -79,7 +80,7 @@ export class PostBusiness {
         throw new Error("User id does not exist.")
       }  */
 
-      const queryFriends: FriendshipInputDTO[] = await friendshipDatabase.findFriendship(id);
+      const queryFriends: followDTO.FollowInputDTO[] = await followDatabase.findFollow(id);
       const existFriendship = queryFriends.findIndex((user) => {
         return user.author_id === id;
       });
@@ -91,7 +92,7 @@ export class PostBusiness {
       const friends:string[] = []
            
       for (let i = 0; i < queryFriends.length; i++) {
-         friends.push(queryFriends[i].friend_id);        
+         friends.push(queryFriends[i].following_id);        
       }
       const posts: postDTO.FeedPostDTO[] = [];     
       const result:postDTO.PostFindDBDTO[] = await postDatabase.feedPost(friends)

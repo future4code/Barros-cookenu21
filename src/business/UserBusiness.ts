@@ -127,6 +127,22 @@ export class UserBusiness {
 
   };
 
-  findUser = () => {};
+  findUserAll = async ():Promise<userDTO.UserFindAllBusiness[]> => {
+    try {
+      const users:userDTO.UserFindAllBusiness[] =[]
+      const resultUser = await userDatabase.findUserAll();
+      for (let i = 0; i< resultUser.length; i++) {
+          users.push({
+            id:resultUser[i].id,
+            name:resultUser[i].name,
+            email:resultUser[i].email,
+            role:resultUser[i].role
+          });   
+      }       
+      return users;
+    } catch (error:any) {
+      throw new errors.CustomError(400, error.message);
+    }
+  };
   deleteUser = () => {};
 }

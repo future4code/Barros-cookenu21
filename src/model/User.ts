@@ -14,6 +14,12 @@ export interface UserDTO{
     password: string
     role: string
  }
+export interface UserFindAllBusiness{
+    id: string,
+    name: string,
+    email: string,
+    role: string
+ }
 export interface InputControllerDTO{
     name: string,
     email: string,

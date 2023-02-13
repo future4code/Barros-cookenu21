@@ -56,12 +56,19 @@ export class UserController {
         author:req.headers.authorization as string
       }
       const user = await userBusiness.profileUser(input)
-      res.status(201).send(user);
+      res.status(200).send(user);
     } catch (error:any) {
       res.status(400).send(error.message);
     }
 
   };
-  findUser = () => {};
+  findUserAll = async (req:Request,res:Response):Promise<void> => {
+    try {
+      const users = await userBusiness.findUserAll();
+      res.status(200).send(users);
+    } catch (error:any) {
+      res.status(400).send(error.message);
+    }
+  };
   deleteUser = () => {};
 }
