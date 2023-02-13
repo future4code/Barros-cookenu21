@@ -49,5 +49,19 @@ export class UserDatabase extends BaseDatabase {
       throw new CustomError(400, error.message);
     }
   };
+  findUserAll  = async (): Promise<userDTO.UserDTO[]> => {
+    try {
+      
+      const result = await UserDatabase.connection
+        .select("*")
+        .from(UserDatabase.TABLE_NAME);
+       
+      return result;
+
+    } catch (error: any) {
+      throw new CustomError(400, error.message);
+    }
+  };
+  
   deleteUser = () => {};
 }

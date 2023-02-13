@@ -19,20 +19,25 @@ Content-Type: application/json
     "password": "1234567"   
 }
 
+### All Users
+GET http://localhost:3003/user/allusers
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+
 ### Profile
 GET http://localhost:3003/user/profile
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjA1MTEwNSwiZXhwIjoxNjc2MDU0NzA1fQ.uQ4TFK7KKG5YqUTupCSo655eAi3VuMQzA6sb4zxU6fA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
 
 ### Profile User
 GET http://localhost:3003/user/69032ad3-fc60-444a-820f-b3b6d14f94d1
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjEwODM5NCwiZXhwIjoxNjc2MTExOTk0fQ.76hjG8EMR8M8DiJLrQMrpC-O2ugneTgIoPHcvcKiiJ0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
 
 ### Create recipe
 POST http://localhost:3003/recipe
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjExNzgzMSwiZXhwIjoxNjc2MTIxNDMxfQ.sEd6-FLeUexRyy-iigwCp2D2fZnOvUvwFvAizx9n4ng
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
 
 {
 	"title": "BOLO DE MACAXEIRA SIMPLES",
@@ -42,16 +47,31 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
 ### Return recipe
 GET http://localhost:3003/recipe/1769422f-3caa-4f63-a2dd-affc0def060a
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjEzODU2MSwiZXhwIjoxNjc2MTQyMTYxfQ.X4Jvvo7SDOlgNRKyqdq7EI-3pUT1Si-Bc0PoqVdinFA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+
+### Criate Followers
+POST http://localhost:3003/user/follow
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+
+{
+    "userToFollowId":"7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c"
+}
+
+### Unfollow
+DELETE http://localhost:3003/user/unfollow
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+
+{
+    "userToUnfollowId":"7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c"
+}
 
 ### Create a new Friendship
 POST http://localhost:3003/friendship/create
 Content-Type: application/json
 Authorization: 1675001631299
 
-{
-    "friendId":"1675019596015"
-}
 
 ### Delete Friendship
 DELETE http://localhost:3003/friendship

@@ -22,10 +22,10 @@ export class Migration extends BaseDatabase {
         );     
         CREATE TABLE IF NOT EXISTS cookenu_follow(
            id VARCHAR(255) PRIMARY KEY NOT NULL,
-           friend_id VARCHAR(255) NOT NULL,
+           following_id VARCHAR(255) NOT NULL,
            author_id VARCHAR(255) NOT NULL,
            FOREIGN KEY (author_id) REFERENCES cookenu_users (id),
-           FOREIGN KEY (friend_id) REFERENCES cookenu_users (id)
+           FOREIGN KEY (following_id) REFERENCES cookenu_users (id)
         );     
       `)
       } catch (error: any) {
