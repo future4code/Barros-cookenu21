@@ -40,9 +40,41 @@ export class PostDatabase extends BaseDatabase {
       );
       return result;
     } catch (error: any) {
-      throw new Error(error.message);
+      throw new erros.CustomError(400, error.message);
     }
   };
+  editPost = async (input:postDTO.InpultDBDTO):Promise<void> =>{
+    try {
+      await PostDatabase.connection(PostDatabase.TABLE_NAME)
+      .where({ id: input.id})
+      .update({
+        title: input.title,
+        description: input.description
+      });      
+      
+    } catch (error: any) {
+      throw new erros.CustomError(400, error.message);
+    }
+  }
 
-  deletePost = () => {};
+  deletePost = async (input:postDTO.PostIdDTO):Promise<void> =>{
+    try {
+      await PostDatabase.connection(PostDatabase.TABLE_NAME)
+      .where({ id: input.id})
+      .delete();      
+      
+    } catch (error: any) {
+      throw new erros.CustomError(400, error.message);
+    }
+  }
+  deleteUserPost = async (input:postDTO.PostIdDTO):Promise<void> =>{
+    try {
+      await PostDatabase.connection(PostDatabase.TABLE_NAME)
+      .where({ author_id: input.authorId})
+      .delete();      
+      
+    } catch (error: any) {
+      throw new erros.CustomError(400, error.message);
+    }
+  }
 }

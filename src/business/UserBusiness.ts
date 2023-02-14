@@ -45,7 +45,7 @@ export class UserBusiness {
         role,
       });
 
-      const token = tokenGenerator.generateToken(id);
+      const token = tokenGenerator.generateToken(id,role);
       return token;
     } catch (error: any) {
       throw new errors.CustomError(400, error.message);
@@ -78,13 +78,13 @@ export class UserBusiness {
       if (!compareResult) {
         throw new errors.InvalidLoginPassword();
       }
-      const token = tokenGenerator.generateToken(user.id);
+      const token = tokenGenerator.generateToken(user.id,user.role);
       return token;
     } catch (error: any) {
       throw new errors.CustomError(400, error.message);
     }
   };
-  profile = async (input:userDTO.AuthenticationData): Promise<userDTO.InputProfileDTO> => {
+  profile = async (input:userDTO.Authentication): Promise<userDTO.InputProfileDTO> => {
     try {
       if(!input){
         throw new errors.InvalidProfile();
@@ -127,7 +127,7 @@ export class UserBusiness {
 
   };
 
-  findUserAll = async (input:userDTO.AuthenticationData):Promise<userDTO.UserFindAllBusiness[]> => {
+  findUserAll = async (input:userDTO.Authentication):Promise<userDTO.UserFindAllBusiness[]> => {
     try {
       const userId = tokenGenerator.tokenData(input.id);
       const users:userDTO.UserFindAllBusiness[] =[]

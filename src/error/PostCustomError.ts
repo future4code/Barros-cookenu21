@@ -28,13 +28,13 @@ export class InvalidPassword extends CustomError{
 
 export class UserNotFound extends CustomError{ 
     constructor(){
-        super(404, "Usuário não encontrado")
+        super(404, "User not found.")
     }
 }
 
 export class Unauthorized extends CustomError{ 
     constructor(){
-        super(401, "Usuário não autorizado")
+        super(401, "User not found")
     }
 }
 
@@ -62,6 +62,22 @@ export class InvalidProfileUser extends CustomError{
 }
 export class InvalidNoFollowers extends CustomError{ 
     constructor(){
-        super(400, "there are no followers!!")
+        super(400, "There are no followers!")
+    }
+}
+export class InvalidNoRecipe extends CustomError{ 
+    constructor(){
+        super(400, "there is no recipe with informed id!")
+    }
+}
+export class InvalidNoAuthorRecipe extends CustomError{ 
+    constructor(){
+        super(400, "it is not possible to lie down, you are not the author!")
+    }
+}
+
+export class InvalidBodyEdit extends CustomError{ 
+    constructor(){
+        super(400, 'Fill in the fields id, title, description')
     }
 }

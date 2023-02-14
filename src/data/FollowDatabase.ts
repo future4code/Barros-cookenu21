@@ -63,4 +63,16 @@ export class FollowDatabase extends BaseDatabase {
         throw new errors.CustomError(400, error.message);
     }
   };
+  deleteUserFollow = async (input: followDTO.DeleteFollowInputDTO): Promise<void> => {
+    try {
+      const { authorId } = input;
+
+      await FollowDatabase.connection
+        .from(FollowDatabase.TABLE_NAME)
+        .where({ author_id: authorId})
+        .delete();
+      } catch (error: any) {
+        throw new errors.CustomError(400, error.message);
+    }
+  };
 }
