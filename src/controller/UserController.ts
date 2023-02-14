@@ -38,7 +38,7 @@ export class UserController {
   };
   profile = async (req:Request,res:Response):Promise<void> => {
     try {
-      const author:userDTO.AuthenticationData = {
+      const author:userDTO.Authentication = {
         id: req.headers.authorization as string
       }
 
@@ -64,7 +64,7 @@ export class UserController {
   };
   findUserAll = async (req:Request,res:Response):Promise<void> => {
     try {
-      const author:userDTO.AuthenticationData = {
+      const author:userDTO.Authentication = {
         id: req.headers.authorization as string
       }
       const users = await userBusiness.findUserAll(author);

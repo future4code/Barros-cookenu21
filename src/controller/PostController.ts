@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
 import * as postDTO from "../model/Posts";
-import { AuthenticationData } from "../model/User";
+import { Authentication } from "../model/User";
 
 const postBusiness = new PostBusiness()
 
 export class PostController {
   createPost = async (req: Request, res: Response): Promise<void> => {
     try {
-      const author:AuthenticationData = {
+      const author:Authentication = {
         id: req.headers.authorization as string
       }
       
@@ -30,7 +30,7 @@ export class PostController {
 
   findPost = async (req: Request, res: Response): Promise<void> => {
     try {
-      const author:AuthenticationData = {
+      const author:Authentication = {
         id: req.headers.authorization as string
       }
       const input: postDTO.PostIdDTO = {
@@ -46,9 +46,9 @@ export class PostController {
     }
   };
 
-  feedPost = async(req: Request, res: Response) => {
+  feedPost = async(req: Request, res: Response):Promise<void> => {
     try {
-      const input:AuthenticationData = {
+      const input:Authentication = {
         id: req.headers.authorization as string,
         };
       
@@ -60,6 +60,30 @@ export class PostController {
     }
   };
 
-  deletePost = () => {};
-  
+  editPost = async (req: Request, res: Response):Promise<void> => {
+    try {
+      const input: postDTO.InpultDBDTO={
+        id: req.body.recipeId,
+        title:req.body.title,
+        description:req.body.description,
+        authorId: req.headers.authorization as string        
+      }
+      await postBusiness.editPost(input);
+     res.status(200).send({ message: "Edited Recipe!" });
+    } catch (error: any) {
+      res.status(400).send(error.message);
+  }
+ };
+deletePost = async (req: Request, res: Response):Promise<void> => {
+  try {
+    const input: postDTO.PostIdDTO={
+      id: req.body.recipeId,
+      authorId: req.headers.authorization as string        
+    }
+    await postBusiness.deletePost(input);
+   res.status(200).send({ message: "Deleted Recipe!" });
+  } catch (error: any) {
+    res.status(400).send(error.message);
+  }
+ };
 }

@@ -7,7 +7,7 @@ import { dateFormatBr } from "../service/formatDate";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
 import { FollowDatabase } from "../data/FollowDatabase";
-import { AuthenticationData } from "../model/User";
+import { Authentication, UserRole } from "../model/User";
 
 const postDatabase = new PostDatabase();
 const userDatabase = new UserDatabase();
@@ -67,7 +67,7 @@ export class PostBusiness {
     }
   };
 
-  feedPost = async(input:AuthenticationData):Promise<postDTO.FeedPostDTO[]> => {
+  feedPost = async(input:Authentication):Promise<postDTO.FeedPostDTO[]> => {
     try {
       const userId = tokenGenerator.tokenData(input.id);
       
@@ -106,9 +106,59 @@ export class PostBusiness {
       
       return posts
     } catch (error:any) {
-      throw new Error(error.message)
+      throw new erros.CustomError(400, error.message);
+    }
+  };
+
+  editPost = async (input:postDTO.InpultDBDTO):Promise<void> => {
+    try {
+      const {id, title, description, authorId} = input;
+      const token = tokenGenerator.tokenData(authorId);
+      if(!id || !title || !description){
+        throw new erros.InvalidBodyEdit();        
+      };
+      const postUser = await postDatabase.findPost(id);
+      if(postUser.length === 0){
+        throw new erros.InvalidNoRecipe();        
+      }
+      const authorPost = postUser.findIndex((user)=>{
+        return user.author_id === token.id;
+      })
+      if(authorPost === -1){
+        throw new erros.InvalidNoAuthorRecipe();        
+      }
+      if (token.role !== UserRole.NORMAL){
+        throw new erros.Unauthorized()
+      }
+      await postDatabase.editPost(input);
+
+    } catch (error:any) {
+      throw new erros.CustomError(400, error.message);      
     }
   };
   
-  deletePost = () => {};
+  deletePost = async (input:postDTO.PostIdDTO):Promise<void> => {
+    try {
+      const {id, authorId} = input;
+      const token = tokenGenerator.tokenData(authorId);
+      if(!id){
+        throw new erros.InvalidProfileUser();        
+      };
+      const postUser = await postDatabase.findPost(id);
+      if(postUser.length === 0){
+        throw new erros.InvalidNoRecipe();        
+      }
+      const authorPost = postUser.findIndex((user)=>{
+        return user.author_id === token.id;
+      })
+      if(authorPost === -1 && token.role === UserRole.NORMAL){
+        throw new erros.InvalidNoAuthorRecipe();        
+      }
+      
+      await postDatabase.deletePost(input);
+
+    } catch (error:any) {
+      throw new erros.CustomError(400, error.message);      
+    }
+  };
 }

@@ -15,7 +15,7 @@ GET http://localhost:3003/login
 Content-Type: application/json
 
 {    
-    "email":"brenosmith@gmail.com",
+    "email":"biancasmith@gmail.com",
     "password": "1234567"   
 }
 
@@ -44,6 +44,26 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAt
 	"description": "2 kg de macaxeira ralada, 6 ovos, 6 xícaras de açúcar, 6 colheres bem generosa de manteiga, 200 g de coco ralado, 1 pitada de sal, 1 colher de fermento"
 }
 
+### Edit recipe
+PUT http://localhost:3003/recipe/edit
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzYzODA4OTgsImV4cCI6MTY3NjM4NDQ5OH0.3nYlhChNoXGEC3XdR3poKePFGaoynjPZLnFMX2oAIIM
+
+{
+    "recipeId":"d6584f81-2974-464e-a3ca-0160ff73493a",
+	"title": "MACAXEIRA ",
+	"description": "2 kg de macaxeira"
+}
+
+### Deleted recipe
+DELETE  http://localhost:3003/recipe/delete
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjM5MDU1NiwiZXhwIjoxNjc2Mzk0MTU2fQ.s35lckF1-Cw983JnNkwSo1EyKnZdK8-7Ts-5LDc7-AA
+
+{
+    "recipeId":"85f7a4b7-f8ea-4c14-afd8-c6f24d529c0b"
+}
+
 ### Return recipe
 GET http://localhost:3003/recipe/1769422f-3caa-4f63-a2dd-affc0def060a
 Content-Type: application/json
@@ -52,7 +72,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
 ### Criate Followers
 POST http://localhost:3003/user/follow
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsImlhdCI6MTY3NjMzMDAyNywiZXhwIjoxNjc2MzMzNjI3fQ.xWO2reLA6p12Ox76ReHcLDCjUVYoy0SQO3l2L10-RzA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjM5MDU1NiwiZXhwIjoxNjc2Mzk0MTU2fQ.s35lckF1-Cw983JnNkwSo1EyKnZdK8-7Ts-5LDc7-AA
 
 {
     "userToFollowId":"72161a45-a46b-48c6-990c-caa348ae2b00"

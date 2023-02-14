@@ -1,6 +1,7 @@
 import { BaseDatabase } from "./BaseDatabase";
 import * as userDTO from "../model/User";
-import { CustomError } from "../error/customError";
+import * as errors from "../error/customError";
+
 
 export class UserDatabase extends BaseDatabase {
   private static TABLE_NAME = "cookenu_users";
@@ -16,7 +17,7 @@ export class UserDatabase extends BaseDatabase {
         })
         .into(UserDatabase.TABLE_NAME);
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
 
@@ -31,7 +32,7 @@ export class UserDatabase extends BaseDatabase {
       return result[0];
 
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
   findUserId = async (id:string): Promise<userDTO.UserDTO> => {
@@ -45,7 +46,7 @@ export class UserDatabase extends BaseDatabase {
       return result[0];
 
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
   
@@ -60,7 +61,7 @@ export class UserDatabase extends BaseDatabase {
       return result[0];
 
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
   findUserAll  = async (): Promise<userDTO.UserDTO[]> => {
@@ -73,9 +74,18 @@ export class UserDatabase extends BaseDatabase {
       return result;
 
     } catch (error: any) {
-      throw new CustomError(400, error.message);
+      throw new errors.CustomError(400, error.message);
     }
   };
   
-  deleteUser = () => {};
+  deleteUser = async (input:userDTO.Authentication):Promise<void> => {
+    try {
+      await UserDatabase.connection
+      .where({id:input.id})
+      .delete();      
+    } catch (error:any) {
+       throw new errors.CustomError(400, error.message);
+             
+    }
+  };
 }
