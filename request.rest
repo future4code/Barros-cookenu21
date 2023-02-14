@@ -4,10 +4,10 @@ POST http://localhost:3003/signup
 Content-Type: application/json
 
 {
-    "name":"Breno Smith",
-    "email":"brenosmith@gmail.com",
+    "name":"Byron Smith",
+    "email":"byronsmith@gmail.com",
     "password": "1234567",
-    "role": "NORMAL"
+    "role": "ADMIN"
 }
 
 ### Login User
@@ -15,29 +15,38 @@ GET http://localhost:3003/login
 Content-Type: application/json
 
 {    
-    "email":"biancasmith@gmail.com",
+    "email":"brenosmith@gmail.com",
     "password": "1234567"   
+}
+
+### Deleted user
+DELETE  http://localhost:3003/user/delete
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+{
+    "userId":"72161a45-a46b-48c6-990c-caa348ae2b00"
 }
 
 ### All Users
 GET http://localhost:3003/user/allusers
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsImlhdCI6MTY3NjM3MDY1OCwiZXhwIjoxNjc2Mzc0MjU4fQ.HLFz3hUSw5PL_NKfvDlIKpE9w1L4oEPg5hPTaK_vdCg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 ### Profile
 GET http://localhost:3003/user/profile
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 ### Profile User
-GET http://localhost:3003/user/69032ad3-fc60-444a-820f-b3b6d14f94d1
+GET http://localhost:3003/user/7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 ### Create recipe
 POST http://localhost:3003/recipe
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsImlhdCI6MTY3NjMzMDIzNywiZXhwIjoxNjc2MzMzODM3fQ.18bc5jxftkp214jcXdjk2LiJxo4lYIB_KLEp002bib0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 {
 	"title": "BOLO DE MACAXEIRA SIMPLES",
@@ -47,10 +56,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAt
 ### Edit recipe
 PUT http://localhost:3003/recipe/edit
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzYzODA4OTgsImV4cCI6MTY3NjM4NDQ5OH0.3nYlhChNoXGEC3XdR3poKePFGaoynjPZLnFMX2oAIIM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 {
-    "recipeId":"d6584f81-2974-464e-a3ca-0160ff73493a",
+    "recipeId":"6b046ac2-6c15-43af-bfbf-f5cf43a342e0",
 	"title": "MACAXEIRA ",
 	"description": "2 kg de macaxeira"
 }
@@ -58,30 +67,30 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAt
 ### Deleted recipe
 DELETE  http://localhost:3003/recipe/delete
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjM5MDU1NiwiZXhwIjoxNjc2Mzk0MTU2fQ.s35lckF1-Cw983JnNkwSo1EyKnZdK8-7Ts-5LDc7-AA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 {
-    "recipeId":"85f7a4b7-f8ea-4c14-afd8-c6f24d529c0b"
+    "recipeId":"6b046ac2-6c15-43af-bfbf-f5cf43a342e0"
 }
 
 ### Return recipe
-GET http://localhost:3003/recipe/1769422f-3caa-4f63-a2dd-affc0def060a
+GET http://localhost:3003/recipe/1d924d97-0572-4ddd-9017-df33cbb5d1ef
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 ### Criate Followers
 POST http://localhost:3003/user/follow
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjM5MDU1NiwiZXhwIjoxNjc2Mzk0MTU2fQ.s35lckF1-Cw983JnNkwSo1EyKnZdK8-7Ts-5LDc7-AA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 {
-    "userToFollowId":"72161a45-a46b-48c6-990c-caa348ae2b00"
+    "userToFollowId":"a2deebd5-84a2-4721-8bb2-2f92599c3b48"
 }
 
 ### Unfollow
 DELETE http://localhost:3003/user/unfollow
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
 
 {
     "userToUnfollowId":"7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c"
@@ -90,4 +99,4 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
 ### Feed Followers
 GET http://localhost:3003/user/feed
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsImlhdCI6MTY3NjM3MDcyOSwiZXhwIjoxNjc2Mzc0MzI5fQ.PQnMwQdDFRbWRHXrWweKOt_j3rk4BLF5uJ5RLlj6dyE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME

@@ -1,6 +1,7 @@
 import { BaseDatabase } from "./BaseDatabase";
 import * as erros from "../error/PostCustomError";
 import * as postDTO from "../model/Posts";
+import { Authentication } from "../model/User";
 
 export class PostDatabase extends BaseDatabase {
   private static TABLE_NAME = "cookenu_recipe";
@@ -19,7 +20,7 @@ export class PostDatabase extends BaseDatabase {
     }
   };
 
-  findPost = async (postid: string): Promise<postDTO.PostFindDBDTO[]> => {
+  findPost = async (postid: string): Promise<postDTO.PostFindDBDTO> => {
     try {
             
       const result = await PostDatabase.connection
@@ -27,7 +28,7 @@ export class PostDatabase extends BaseDatabase {
         .from(PostDatabase.TABLE_NAME)
         .where({ id: postid });
       
-      return result;
+      return result[0];
     } catch (error: any) {
       throw new erros.CustomError(400, error.message);
     }
@@ -67,10 +68,10 @@ export class PostDatabase extends BaseDatabase {
       throw new erros.CustomError(400, error.message);
     }
   }
-  deleteUserPost = async (input:postDTO.PostIdDTO):Promise<void> =>{
+  deleteUserPost = async (input:string):Promise<void> =>{
     try {
       await PostDatabase.connection(PostDatabase.TABLE_NAME)
-      .where({ author_id: input.authorId})
+      .where({ author_id: input})
       .delete();      
       
     } catch (error: any) {

@@ -1,3 +1,5 @@
+import { FollowDatabase } from "../data/FollowDatabase";
+import { PostDatabase } from "../data/PostDatabase";
 import { UserDatabase } from "../data/UserDatabase";
 import * as errors from "../error/customError";
 import * as userDTO from "../model/User";
@@ -8,6 +10,8 @@ const idGenerator = new IdGenerator();
 const tokenGenerator = new TokenGenerator();
 const userDatabase = new UserDatabase();
 const hashManager = new HashManager();
+const followDatabase = new FollowDatabase();
+const postDatabase = new PostDatabase();
 
 export class UserBusiness {
   createUser = async (input: userDTO.InputControllerDTO): Promise<string> => {
@@ -91,6 +95,9 @@ export class UserBusiness {
       }
       const userId = tokenGenerator.tokenData(input.id);
       const user = await userDatabase.profile(userId.id);
+      if(!user){
+        throw new errors.Unauthorized();
+      }
       const resultUser:userDTO.InputProfileDTO = {
         id:user.id,
         name:user.name,
@@ -111,7 +118,10 @@ export class UserBusiness {
       }
       const tokenUser= tokenGenerator.tokenData(author);
       const userToken = await userDatabase.profile(tokenUser.id);
-      const user = await userDatabase.profile(userId);
+      const user = await userDatabase.profile(userId);      
+      if(!userToken){
+        throw new errors.Unauthorized();
+      }
       if(!user){
         throw new errors.InvalidProfileUser();
       }
@@ -145,5 +155,30 @@ export class UserBusiness {
       throw new errors.CustomError(400, error.message);
     }
   };
-  deleteUser = () => {};
+  deleteUser = async (input:userDTO.InputProfileUserDTO):Promise<void> => {
+    try {
+      const {userId,author} = input;
+      const token = tokenGenerator.tokenData(author);
+      if(!userId){
+        throw new errors.InvalidDelete();
+        
+      }
+
+      if(token.role !== userDTO.UserRole.ADMIN){
+        throw new errors.Unauthorized();
+      }
+
+      const resultUser = await userDatabase.findUserId(userId);
+      
+      if(!resultUser){
+        throw new errors.InvalidProfileUser();        
+      }
+      await followDatabase.deleteUserFollow(userId);
+      await postDatabase.deleteUserPost(userId);
+      await userDatabase.deleteUser(userId);
+    } catch (error:any) {
+      throw new errors.CustomError(400, error.message);
+      
+    }
+  };
 }

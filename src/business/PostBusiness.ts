@@ -23,7 +23,11 @@ export class PostBusiness {
       if (!title || !description || !authorId) {
         throw new erros.InvalidTitle();
       }      
-      const userId = tokenGenerator.tokenData(authorId);       
+      const userId = tokenGenerator.tokenData(authorId); 
+      const userToken = await userDatabase.findUserId(userId.id)
+      if(!userToken){
+        throw new erros.Unauthorized();
+      }      
       const id: string = idGenerator.generateId();
 
       await postDatabase.insertPost({
@@ -47,16 +51,20 @@ export class PostBusiness {
         throw new erros.InvalidFind();
       }
       const userId = tokenGenerator.tokenData(authorId);
-      const result:postDTO.PostFindDBDTO[] = await postDatabase.findPost(id)
-      const formatDate = dateFormatBr(result[0].created_at.toString())
-    
-      if (!result[0]) {
+      const userToken = await userDatabase.findUserId(userId.id)
+      if(!userToken){
+        throw new erros.Unauthorized();
+      } 
+      const result:postDTO.PostFindDBDTO = await postDatabase.findPost(id)
+      if (!result) {
         throw new erros.InvalidFindPostId();
      }
+      const formatDate = dateFormatBr(result.created_at.toString())
+      
      const post:postDTO.PostFindDTO = {
-      id: result[0].id,
-      title: result[0].title,
-      description: result[0].description,
+      id: result.id,
+      title: result.title,
+      description: result.description,
       createdAt: formatDate
      }
 
@@ -70,8 +78,14 @@ export class PostBusiness {
   feedPost = async(input:Authentication):Promise<postDTO.FeedPostDTO[]> => {
     try {
       const userId = tokenGenerator.tokenData(input.id);
-      
+      const userToken = await userDatabase.findUserId(userId.id)
+      if(!userToken){
+        throw new erros.Unauthorized();
+      }       
       const queryfollow: followDTO.FollowInputDTO[] = await followDatabase.findFollow(userId.id);
+      if(queryfollow.length === 0){
+        throw new erros.InvalidNoFollowers();
+      }
       const existfollowhip = queryfollow.findIndex((user) => {
         return user.author_id === userId.id;
       });
@@ -114,17 +128,18 @@ export class PostBusiness {
     try {
       const {id, title, description, authorId} = input;
       const token = tokenGenerator.tokenData(authorId);
+      const userToken = await userDatabase.findUserId(token.id)
+      if(!userToken){
+        throw new erros.Unauthorized();
+      } 
       if(!id || !title || !description){
         throw new erros.InvalidBodyEdit();        
       };
       const postUser = await postDatabase.findPost(id);
-      if(postUser.length === 0){
+      if(!postUser){
         throw new erros.InvalidNoRecipe();        
       }
-      const authorPost = postUser.findIndex((user)=>{
-        return user.author_id === token.id;
-      })
-      if(authorPost === -1){
+      if(postUser.author_id === token.id){
         throw new erros.InvalidNoAuthorRecipe();        
       }
       if (token.role !== UserRole.NORMAL){
@@ -141,17 +156,18 @@ export class PostBusiness {
     try {
       const {id, authorId} = input;
       const token = tokenGenerator.tokenData(authorId);
+      const userToken = await userDatabase.findUserId(token.id)
+      if(!userToken){
+        throw new erros.Unauthorized();
+      } 
       if(!id){
         throw new erros.InvalidProfileUser();        
       };
       const postUser = await postDatabase.findPost(id);
-      if(postUser.length === 0){
+      if(!postUser){
         throw new erros.InvalidNoRecipe();        
       }
-      const authorPost = postUser.findIndex((user)=>{
-        return user.author_id === token.id;
-      })
-      if(authorPost === -1 && token.role === UserRole.NORMAL){
+      if(postUser.author_id === token.id && token.role === UserRole.NORMAL){
         throw new erros.InvalidNoAuthorRecipe();        
       }
       

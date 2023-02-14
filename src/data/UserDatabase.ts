@@ -35,6 +35,7 @@ export class UserDatabase extends BaseDatabase {
       throw new errors.CustomError(400, error.message);
     }
   };
+
   findUserId = async (id:string): Promise<userDTO.UserDTO> => {
     try {
       
@@ -64,6 +65,7 @@ export class UserDatabase extends BaseDatabase {
       throw new errors.CustomError(400, error.message);
     }
   };
+
   findUserAll  = async (): Promise<userDTO.UserDTO[]> => {
     try {
       
@@ -78,10 +80,11 @@ export class UserDatabase extends BaseDatabase {
     }
   };
   
-  deleteUser = async (input:userDTO.Authentication):Promise<void> => {
+  deleteUser = async (input:string):Promise<void> => {
     try {
       await UserDatabase.connection
-      .where({id:input.id})
+      .from(UserDatabase.TABLE_NAME)
+      .where({id:input})
       .delete();      
     } catch (error:any) {
        throw new errors.CustomError(400, error.message);

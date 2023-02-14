@@ -30,13 +30,13 @@ export class InvalidPassword extends CustomError{
 
 export class UserNotFound extends CustomError{ 
     constructor(){
-        super(404, "Usuário não encontrado")
+        super(404, "User not found")
     }
 }
 
 export class Unauthorized extends CustomError{ 
     constructor(){
-        super(401, "Usuário não autorizado")
+        super(401, "unauthorized user")
     }
 }
 
@@ -65,5 +65,11 @@ export class InvalidProfile extends CustomError{
 export class InvalidProfileUser extends CustomError{ 
     constructor(){
         super(400, "Invalid Id User!")
+    }
+}
+
+export class InvalidDelete extends CustomError{ 
+    constructor(){
+        super(400, 'Fill in the field "id user"')
     }
 }

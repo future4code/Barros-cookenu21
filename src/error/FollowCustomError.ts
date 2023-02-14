@@ -24,3 +24,8 @@ export class InvalidFollowing extends CustomError{
         super(400, "You don't follow this profile!")
     }
 }
+export class Unauthorized extends CustomError{ 
+    constructor(){
+        super(401, "Unauthorized!")
+    }
+}

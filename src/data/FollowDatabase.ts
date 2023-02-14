@@ -1,6 +1,7 @@
 import { BaseDatabase } from "./BaseDatabase";
 import * as followDTO from "../model/Follow";
 import * as errors from "../error/FollowCustomError"
+import { Authentication } from "../model/User";
 
 export class FollowDatabase extends BaseDatabase {
   private static TABLE_NAME = "cookenu_follow";
@@ -63,13 +64,12 @@ export class FollowDatabase extends BaseDatabase {
         throw new errors.CustomError(400, error.message);
     }
   };
-  deleteUserFollow = async (input: followDTO.DeleteFollowInputDTO): Promise<void> => {
+  deleteUserFollow = async (input:string): Promise<void> => {
     try {
-      const { authorId } = input;
-
+      
       await FollowDatabase.connection
         .from(FollowDatabase.TABLE_NAME)
-        .where({ author_id: authorId})
+        .where({ author_id: input})
         .delete();
       } catch (error: any) {
         throw new errors.CustomError(400, error.message);

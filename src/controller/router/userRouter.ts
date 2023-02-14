@@ -12,10 +12,11 @@ const postController = new PostController();
 
 userRouter.post('/', userController.createUser);
 userRouter.get('/', userController.login);
-userRouter.get('/feed', postController.feedPost);
 userRouter.get('/allusers', userController.findUserAll);
 userRouter.get('/profile', userController.profile);
+userRouter.get('/feed', postController.feedPost);
 userRouter.get('/:id', userController.profileUser);
+userRouter.delete('/delete', userController.deleteUser);
 userRouter.post('/follow', followController.createFollow);
 userRouter.delete('/unfollow', followController.deleteFollow);
 
