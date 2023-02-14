@@ -12,7 +12,8 @@
     title: string,
     description: string,
     createdAt: Date,
-    authorId: string
+    userId: string,
+    userName: string
  }
  export interface PostFindDTO{
     id: string,

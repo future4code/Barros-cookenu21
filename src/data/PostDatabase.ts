@@ -44,15 +44,5 @@ export class PostDatabase extends BaseDatabase {
     }
   };
 
-  feedPostAll = async (input: string): Promise<postDTO.PostFindDBDTO[]> => {
-    try {
-      const [result] = await PostDatabase.connection.raw(
-        `select * from ${PostDatabase.TABLE_NAME} where type = "${input}" order by created_at desc;`
-      );
-      return result;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
   deletePost = () => {};
 }

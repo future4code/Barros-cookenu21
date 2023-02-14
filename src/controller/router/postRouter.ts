@@ -10,4 +10,3 @@ postRouter.post('/',postController.createPost);
 postRouter.get('/:id',postController.findPost);
 postRouter.get('/getfeedsfreands',postController.feedPost);
 
-

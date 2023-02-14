@@ -20,18 +20,6 @@ export class InvalidFindPostId extends CustomError{
     }
 }
 
-
-export class InvalidEmail extends CustomError{ 
-    constructor(){
-        super(400, "Email inválido")
-    }
-}
-export class InvalidEmailRegistered extends CustomError{ 
-    constructor(){
-        super(400, "User already registered")
-    }
-}
-
 export class InvalidPassword extends CustomError{ 
     constructor(){
         super(400, "Password too short minimum 6 characters")
@@ -62,11 +50,6 @@ export class InvalidLogin extends CustomError{
     }
 }
 
-export class InvalidLoginPassword extends CustomError{ 
-    constructor(){
-        super(400, "Invalid password/email")
-    }
-}
 export class InvalidProfile extends CustomError{ 
     constructor(){
         super(400, "Invalid Authorization!")
@@ -75,5 +58,10 @@ export class InvalidProfile extends CustomError{
 export class InvalidProfileUser extends CustomError{ 
     constructor(){
         super(400, "Invalid Id User!")
+    }
+}
+export class InvalidNoFollowers extends CustomError{ 
+    constructor(){
+        super(400, "there are no followers!!")
     }
 }

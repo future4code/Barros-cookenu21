@@ -127,8 +127,9 @@ export class UserBusiness {
 
   };
 
-  findUserAll = async ():Promise<userDTO.UserFindAllBusiness[]> => {
+  findUserAll = async (input:userDTO.AuthenticationData):Promise<userDTO.UserFindAllBusiness[]> => {
     try {
+      const userId = tokenGenerator.tokenData(input.id);
       const users:userDTO.UserFindAllBusiness[] =[]
       const resultUser = await userDatabase.findUserAll();
       for (let i = 0; i< resultUser.length; i++) {

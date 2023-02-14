@@ -48,32 +48,18 @@ export class PostController {
 
   feedPost = async(req: Request, res: Response) => {
     try {
-      const input: postDTO.PostIdDTO = {
+      const input:AuthenticationData = {
         id: req.headers.authorization as string,
-        authorId:""
-      };
+        };
       
-      const posts = await postBusiness.feedPost(input)
+      const recipes = await postBusiness.feedPost(input)
 
-      res.status(200).send({ posts });
+      res.status(200).send({ recipes });
     } catch (error: any) {
       res.status(400).send(error.message);
     }
   };
 
-  /* feedPostAll = async(req: Request, res: Response) => {
-    try {
-      const input: PostTypeDTO = {
-        type: req.body.type
-      };
-            
-      const posts = await postBusiness.feedPostAll(input)
-
-      res.status(200).send({ posts });
-    } catch (error: any) {
-      res.status(400).send(error.message);
-    }
-  }; */
   deletePost = () => {};
   
 }

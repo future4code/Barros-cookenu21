@@ -1,4 +1,3 @@
-
 import { PostDatabase } from "../data/PostDatabase";
 import { UserDatabase } from "../data/UserDatabase";
 import * as erros from "../error/PostCustomError";
@@ -8,6 +7,7 @@ import { dateFormatBr } from "../service/formatDate";
 import { IdGenerator } from "../service/IdGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
 import { FollowDatabase } from "../data/FollowDatabase";
+import { AuthenticationData } from "../model/User";
 
 const postDatabase = new PostDatabase();
 const userDatabase = new UserDatabase();
@@ -67,46 +67,39 @@ export class PostBusiness {
     }
   };
 
-  feedPost = async(input:postDTO.PostIdDTO):Promise<postDTO.FeedPostDTO[]> => {
+  feedPost = async(input:AuthenticationData):Promise<postDTO.FeedPostDTO[]> => {
     try {
-      const {id} = input;
-            
-     /*  const queryUser = await userDatabase.findUser();
-      const existUser = queryUser.findIndex((user)=>{
-        return user.id === id
-      })
+      const userId = tokenGenerator.tokenData(input.id);
       
-      if(existUser === -1){
-        throw new Error("User id does not exist.")
-      }  */
-
-      const queryFriends: followDTO.FollowInputDTO[] = await followDatabase.findFollow(id);
-      const existFriendship = queryFriends.findIndex((user) => {
-        return user.author_id === id;
+      const queryfollow: followDTO.FollowInputDTO[] = await followDatabase.findFollow(userId.id);
+      const existfollowhip = queryfollow.findIndex((user) => {
+        return user.author_id === userId.id;
       });
 
-      if (existFriendship === -1) {
-        throw new Error("friendship already exists!");
+      if (existfollowhip === -1) {
+        throw new erros.InvalidNoFollowers();
       }
 
-      const friends:string[] = []
+      const follow:string[] = []
            
-      for (let i = 0; i < queryFriends.length; i++) {
-         friends.push(queryFriends[i].following_id);        
+      for (let i = 0; i < queryfollow.length; i++) {
+         follow.push(queryfollow[i].following_id);        
       }
       const posts: postDTO.FeedPostDTO[] = [];     
-      const result:postDTO.PostFindDBDTO[] = await postDatabase.feedPost(friends)
+      const result:postDTO.PostFindDBDTO[] = await postDatabase.feedPost(follow)
       result.map((item:any)=>{
         item.created_at = dateFormatBr(item.created_at.toString())
         return result
     })
       for (let i = 0; i < result.length; i++) {
+        let user = await userDatabase.findUserId(result[i].author_id);
         posts.push({
           id: result[i].id,
           title: result[i].title,
           description: result[i].description,
           createdAt: result[i].created_at,
-          authorId: result[i].author_id}
+          userId: result[i].author_id,
+          userName: user.name }
         )
         
       }
@@ -116,37 +109,6 @@ export class PostBusiness {
       throw new Error(error.message)
     }
   };
-  feedPostAll = async(input:string) => {
-    try {
-      
-      
-      if(input.toUpperCase() !== "normal".toUpperCase() && input.toUpperCase() !== "event".toUpperCase()){
-        throw new Error(
-          'Fill in the field type: normal or event'
-        );
-      }      
-      const posts: postDTO.FeedPostDTO[] = [];  
-      const result:postDTO.PostFindDBDTO[] = await postDatabase.feedPostAll(input)
-      result.map((item:any)=>{
-        item.created_at = dateFormatBr(item.created_at.toString())
-        return result
-    }) 
-      
-      for (let i = 0; i < result.length; i++) {
-        posts.push({
-          id: result[i].id,
-          title: result[i].title,
-          description: result[i].description,
-          createdAt: result[i].created_at,
-          authorId: result[i].author_id}
-        )
-        
-      }
-
-      return posts
-    } catch (error:any) {
-      throw new Error(error.message)
-    }
-  };
+  
   deletePost = () => {};
 }

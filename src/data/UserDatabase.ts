@@ -34,6 +34,20 @@ export class UserDatabase extends BaseDatabase {
       throw new CustomError(400, error.message);
     }
   };
+  findUserId = async (id:string): Promise<userDTO.UserDTO> => {
+    try {
+      
+      const result = await UserDatabase.connection
+        .select("*")
+        .from(UserDatabase.TABLE_NAME)
+        .where({id});
+       
+      return result[0];
+
+    } catch (error: any) {
+      throw new CustomError(400, error.message);
+    }
+  };
   
   profile = async (input:string): Promise<userDTO.InputProfileDTO> => {
     try {
