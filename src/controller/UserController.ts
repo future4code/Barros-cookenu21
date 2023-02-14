@@ -64,7 +64,10 @@ export class UserController {
   };
   findUserAll = async (req:Request,res:Response):Promise<void> => {
     try {
-      const users = await userBusiness.findUserAll();
+      const author:userDTO.AuthenticationData = {
+        id: req.headers.authorization as string
+      }
+      const users = await userBusiness.findUserAll(author);
       res.status(200).send(users);
     } catch (error:any) {
       res.status(400).send(error.message);

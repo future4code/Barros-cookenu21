@@ -15,14 +15,14 @@ GET http://localhost:3003/login
 Content-Type: application/json
 
 {    
-    "email":"biancasmith@gmail.com",
+    "email":"brenosmith@gmail.com",
     "password": "1234567"   
 }
 
 ### All Users
 GET http://localhost:3003/user/allusers
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsImlhdCI6MTY3NjM3MDY1OCwiZXhwIjoxNjc2Mzc0MjU4fQ.HLFz3hUSw5PL_NKfvDlIKpE9w1L4oEPg5hPTaK_vdCg
 
 ### Profile
 GET http://localhost:3003/user/profile
@@ -37,7 +37,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
 ### Create recipe
 POST http://localhost:3003/recipe
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsImlhdCI6MTY3NjMzMDIzNywiZXhwIjoxNjc2MzMzODM3fQ.18bc5jxftkp214jcXdjk2LiJxo4lYIB_KLEp002bib0
 
 {
 	"title": "BOLO DE MACAXEIRA SIMPLES",
@@ -52,10 +52,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
 ### Criate Followers
 POST http://localhost:3003/user/follow
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmItNDhjNi05OTBjLWNhYTM0OGFlMmIwMCIsImlhdCI6MTY3NjMxNzc1OSwiZXhwIjoxNjc2MzIxMzU5fQ.S_XnE3KmR9cnAXbwwKPMr9JB8SlD0JZovNX9m5rLDaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDMyYWQzLWZjNjAtNDQ0YS04MjBmLWIzYjZkMTRmOTRkMSIsImlhdCI6MTY3NjMzMDAyNywiZXhwIjoxNjc2MzMzNjI3fQ.xWO2reLA6p12Ox76ReHcLDCjUVYoy0SQO3l2L10-RzA
 
 {
-    "userToFollowId":"7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c"
+    "userToFollowId":"72161a45-a46b-48c6-990c-caa348ae2b00"
 }
 
 ### Unfollow
@@ -67,58 +67,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyMTYxYTQ1LWE0NmIt
     "userToUnfollowId":"7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c"
 }
 
-### Create a new Friendship
-POST http://localhost:3003/friendship/create
+### Feed Followers
+GET http://localhost:3003/user/feed
 Content-Type: application/json
-Authorization: 1675001631299
-
-
-### Delete Friendship
-DELETE http://localhost:3003/friendship
-Content-Type: application/json
-Authorization: 1675001631299
-
-{
-    "friendId":"1675019596015"
-}
-
-### Return Feeds freands
-GET http://localhost:3003/post/getfeedsfreands
-Content-Type: application/json
-Authorization: fde08a25-cb5c-4948-bb59-693eb726721d
-
-### return feed by type 
-GET http://localhost:3003/post/getfeeds
-Content-Type: application/json
-
-{
-    "type":"normal"
-}
-
-### Like Post
-POST http://localhost:3003/like/create
-Content-Type: application/json
-Authorization: 1675001631299
-
-{
-    "postId":"1675379034720"
-}
-
-### Delete Like Post
-DELETE  http://localhost:3003/like
-Content-Type: application/json
-Authorization: 1675001631299
-
-{
-    "postId":"1675379034720"
-}
-
-### Comment Post
-POST   http://localhost:3003/comments
-Content-Type: application/json
-Authorization: 1675001631299
-
-{
-    "comment":"Linda foto",
-    "postId":"1675379034720"
-}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsImlhdCI6MTY3NjM3MDcyOSwiZXhwIjoxNjc2Mzc0MzI5fQ.PQnMwQdDFRbWRHXrWweKOt_j3rk4BLF5uJ5RLlj6dyE
