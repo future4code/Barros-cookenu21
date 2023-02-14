@@ -73,5 +73,17 @@ export class UserController {
       res.status(400).send(error.message);
     }
   };
-  deleteUser = () => {};
+  deleteUser = async (req:Request,res:Response):Promise<void> => {
+    try {
+      const input:userDTO.InputProfileUserDTO = {
+        userId:req.body.userId,
+        author:req.headers.authorization as string
+      }
+      await userBusiness.deleteUser(input)
+      res.status(201).send({message: "User deleted!"});
+    } catch (error:any) {
+      res.status(400).send(error.message);
+    }
+
+  };
 }

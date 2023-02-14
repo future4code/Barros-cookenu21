@@ -15,7 +15,11 @@ export class FollowBusiness {
     try {
       const { followingId, authorId } = input;
       
-      const userId = tokenGenerator.tokenData(authorId);  
+      const userId = tokenGenerator.tokenData(authorId);
+      const userToken = await userDatabase.findUserId(userId.id)
+      if(!userToken){
+        throw new errors.Unauthorized();
+      }  
 
       if (!followingId || !authorId) {
         throw new errors.InvalidInputFollow();
@@ -58,6 +62,10 @@ export class FollowBusiness {
       const { followingId, authorId } = input;
 
       const userId = tokenGenerator.tokenData(authorId);  
+      const userToken = await userDatabase.findUserId(userId.id)
+      if(!userToken){
+        throw new errors.Unauthorized();
+      }
 
       if (!followingId || !authorId) {
         throw new errors.InvalidInputFollow();

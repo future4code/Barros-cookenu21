@@ -30,12 +30,9 @@ export class PostController {
 
   findPost = async (req: Request, res: Response): Promise<void> => {
     try {
-      const author:Authentication = {
-        id: req.headers.authorization as string
-      }
-      const input: postDTO.PostIdDTO = {
+        const input: postDTO.PostIdDTO = {
         id: req.params.id,
-        authorId : author.id
+        authorId : req.headers.authorization as string
       };
       
       const post = await postBusiness.findPost(input)
