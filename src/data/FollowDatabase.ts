@@ -7,11 +7,12 @@ export class FollowDatabase extends BaseDatabase {
   private static TABLE_NAME = "cookenu_follow";
   insertFollow = async (follow: followDTO.FollowInputDataDTO): Promise<void> => {
     try {
+        const {id, followingId, authorId} = follow
       await FollowDatabase.connection
         .insert({
-          id: follow.id,
-          following_id: follow.followingId,
-          author_id: follow.authorId
+          id: id,
+          following_id: followingId,
+          author_id: authorId
         })
         .into(FollowDatabase.TABLE_NAME);
     } catch (error: any) {

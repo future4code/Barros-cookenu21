@@ -39,6 +39,18 @@ export interface InputProfileDTO {
   name: string;
   email: string;
 }
+export interface InputUpdateDTO {
+  id: string;
+  name: string;
+  email: string;
+  password:string;
+}
+export interface InputRecoverPassDTO {
+    password: string;
+}
+export interface InputRecoverEmailDTO {
+    email: string;
+}
 export interface InputProfileUserDTO {
   userId: string;
   author: string;

@@ -14,6 +14,7 @@ userRouter.post('/', userController.createUser);
 userRouter.get('/', userController.login);
 userRouter.get('/allusers', userController.findUserAll);
 userRouter.get('/profile', userController.profile);
+userRouter.get('/recover_account', userController.recoverLogin);
 userRouter.get('/feed', postController.feedPost);
 userRouter.get('/:id', userController.profileUser);
 userRouter.delete('/delete', userController.deleteUser);

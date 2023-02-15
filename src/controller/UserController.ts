@@ -86,4 +86,16 @@ export class UserController {
     }
 
   };
+  recoverLogin = async (req:Request,res:Response):Promise<void> =>{
+    try {
+      const input:userDTO.InputRecoverEmailDTO = {
+        email: req.body.email as string
+        
+      }
+      await userBusiness.recoverLogin(input)
+      res.status(201).send({message: "Password sent to email!"});
+    } catch (error:any) {
+      res.status(400).send(error.message);
+    }
+  }
 }
