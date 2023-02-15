@@ -2,9 +2,12 @@ import { FollowDatabase } from "../data/FollowDatabase";
 import { PostDatabase } from "../data/PostDatabase";
 import { UserDatabase } from "../data/UserDatabase";
 import * as errors from "../error/customError";
+import { sendEmail } from "../model/sendEmail";
 import * as userDTO from "../model/User";
 import { HashManager } from "../service/HashManager";
 import { IdGenerator } from "../service/IdGenerator";
+import transporter from "../service/mailTransporter";
+import { passGenerator } from "../service/PassGenerator";
 import { TokenGenerator } from "../service/TokenGenerator";
 const idGenerator = new IdGenerator();
 const tokenGenerator = new TokenGenerator();
@@ -48,8 +51,7 @@ export class UserBusiness {
         password: hashPassword,
         role,
       });
-
-      const token = tokenGenerator.generateToken(id,role);
+      const token = tokenGenerator.generateToken(id, role);
       return token;
     } catch (error: any) {
       throw new errors.CustomError(400, error.message);
@@ -82,103 +84,142 @@ export class UserBusiness {
       if (!compareResult) {
         throw new errors.InvalidLoginPassword();
       }
-      const token = tokenGenerator.generateToken(user.id,user.role);
+      const token = tokenGenerator.generateToken(user.id, user.role);
       return token;
     } catch (error: any) {
       throw new errors.CustomError(400, error.message);
     }
   };
-  profile = async (input:userDTO.Authentication): Promise<userDTO.InputProfileDTO> => {
+  profile = async (
+    input: userDTO.Authentication
+  ): Promise<userDTO.InputProfileDTO> => {
     try {
-      if(!input){
+      if (!input) {
         throw new errors.InvalidProfile();
       }
       const userId = tokenGenerator.tokenData(input.id);
       const user = await userDatabase.profile(userId.id);
-      if(!user){
+      if (!user) {
         throw new errors.Unauthorized();
       }
-      const resultUser:userDTO.InputProfileDTO = {
-        id:user.id,
-        name:user.name,
-        email:user.email
-      }
+      const resultUser: userDTO.InputProfileDTO = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
       return resultUser;
-    } catch (error:any) {
+    } catch (error: any) {
       throw new errors.CustomError(400, error.message);
     }
-
   };
-  profileUser = async (input:userDTO.InputProfileUserDTO): Promise<userDTO.InputProfileDTO> => {
+  profileUser = async (
+    input: userDTO.InputProfileUserDTO
+  ): Promise<userDTO.InputProfileDTO> => {
     try {
-       const {userId,author} = input;
-       
-      if(!userId || !author){
+      const { userId, author } = input;
+
+      if (!userId || !author) {
         throw new errors.InvalidProfile();
       }
-      const tokenUser= tokenGenerator.tokenData(author);
+      const tokenUser = tokenGenerator.tokenData(author);
       const userToken = await userDatabase.profile(tokenUser.id);
-      const user = await userDatabase.profile(userId);      
-      if(!userToken){
+      const user = await userDatabase.profile(userId);
+      if (!userToken) {
         throw new errors.Unauthorized();
       }
-      if(!user){
+      if (!user) {
         throw new errors.InvalidProfileUser();
       }
-      const resultUser:userDTO.InputProfileDTO = {
-        id:user.id,
-        name:user.name,
-        email:user.email
-      }
+      const resultUser: userDTO.InputProfileDTO = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
       return resultUser;
-    } catch (error:any) {
+    } catch (error: any) {
       throw new errors.CustomError(400, error.message);
     }
-
   };
 
-  findUserAll = async (input:userDTO.Authentication):Promise<userDTO.UserFindAllBusiness[]> => {
+  findUserAll = async (
+    input: userDTO.Authentication
+  ): Promise<userDTO.UserFindAllBusiness[]> => {
     try {
       const userId = tokenGenerator.tokenData(input.id);
-      const users:userDTO.UserFindAllBusiness[] =[]
+      const users: userDTO.UserFindAllBusiness[] = [];
       const resultUser = await userDatabase.findUserAll();
-      for (let i = 0; i< resultUser.length; i++) {
-          users.push({
-            id:resultUser[i].id,
-            name:resultUser[i].name,
-            email:resultUser[i].email,
-            role:resultUser[i].role
-          });   
-      }       
+      for (let i = 0; i < resultUser.length; i++) {
+        users.push({
+          id: resultUser[i].id,
+          name: resultUser[i].name,
+          email: resultUser[i].email,
+          role: resultUser[i].role,
+        });
+      }
       return users;
-    } catch (error:any) {
+    } catch (error: any) {
       throw new errors.CustomError(400, error.message);
     }
   };
-  deleteUser = async (input:userDTO.InputProfileUserDTO):Promise<void> => {
+  deleteUser = async (input: userDTO.InputProfileUserDTO): Promise<void> => {
     try {
-      const {userId,author} = input;
+      const { userId, author } = input;
       const token = tokenGenerator.tokenData(author);
-      if(!userId){
+      if (!userId) {
         throw new errors.InvalidDelete();
-        
       }
 
-      if(token.role !== userDTO.UserRole.ADMIN){
+      if (token.role !== userDTO.UserRole.ADMIN) {
         throw new errors.Unauthorized();
       }
 
       const resultUser = await userDatabase.findUserId(userId);
-      
-      if(!resultUser){
-        throw new errors.InvalidProfileUser();        
+
+      if (!resultUser) {
+        throw new errors.InvalidProfileUser();
       }
       await followDatabase.deleteUserFollow(userId);
       await postDatabase.deleteUserPost(userId);
       await userDatabase.deleteUser(userId);
-    } catch (error:any) {
+    } catch (error: any) {
       throw new errors.CustomError(400, error.message);
+    }
+  };
+  recoverLogin = async (input: userDTO.InputRecoverEmailDTO): Promise<void> => {
+    try {
+      const { email } = input;
+      if (!email) {
+        throw new errors.InvalidRecoverLogin();
+      }
+      if (!email.includes("@")) {
+        throw new errors.InvalidEmail();
+      }
+      let user:userDTO.UserDTO = await userDatabase.findUser(email);
+      if (!user) {
+        throw new errors.InvalidNotEmail();
+      }
       
+      const passRaundom = passGenerator();
+      const hashPassword: string = await hashManager.generateHash(passRaundom);
+      
+      user = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: hashPassword,
+        role: user.role
+      };
+      const sendHtml = sendEmail(passRaundom,user.name)
+      await userDatabase.updateUser(user);
+      const send = await transporter.sendMail({
+        from: process.env.NODEMAILER_USER,
+        to: user.email,
+        subject: "Recover Password",
+        html: `${sendHtml}`
+      });
+   
+    } catch (error: any) {
+      throw new errors.CustomError(400, error.message);
     }
   };
 }

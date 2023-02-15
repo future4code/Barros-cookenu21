@@ -51,6 +51,17 @@ export class InvalidLogin extends CustomError{
         super(400, 'Fill in the fields "email" e "password"')
     }
 }
+export class InvalidRecoverLogin extends CustomError{ 
+    constructor(){
+        super(400, 'Fill in the fields "email"')
+    }
+}
+
+export class InvalidNotEmail extends CustomError{ 
+    constructor(){
+        super(400, 'email not found!')
+    }
+}
 
 export class InvalidLoginPassword extends CustomError{ 
     constructor(){

@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
     "name":"Byron Smith",
-    "email":"byronsmith@gmail.com",
+    "email":"byronnobrega@hotmail.com",
     "password": "1234567",
     "role": "ADMIN"
 }
@@ -15,8 +15,16 @@ GET http://localhost:3003/login
 Content-Type: application/json
 
 {    
-    "email":"brenosmith@gmail.com",
-    "password": "1234567"   
+    "email":"byronnobrega@hotmail.com",
+    "password": "8kk66uvusm"   
+}
+
+### Recover Login
+GET http://localhost:3003/user/recover_account
+Content-Type: application/json
+
+{    
+    "email":"byronnobrega@hotmail.com"
 }
 
 ### Deleted user

@@ -79,6 +79,19 @@ export class UserDatabase extends BaseDatabase {
       throw new errors.CustomError(400, error.message);
     }
   };
+
+  updateUser = async (input:userDTO.InputUpdateDTO): Promise<void> => {
+    try {
+      await UserDatabase.connection(UserDatabase.TABLE_NAME)
+      .where({ id: input.id})
+      .update({
+        password: input.password,
+      });      
+      
+    } catch (error: any) {
+      throw new errors.CustomError(400, error.message);
+    }
+ };
   
   deleteUser = async (input:string):Promise<void> => {
     try {
