@@ -217,7 +217,7 @@ export class UserBusiness {
         subject: "Recover Password",
         html: `${sendHtml}`
       });
-   
+      
     } catch (error: any) {
       throw new errors.CustomError(400, error.message);
     }

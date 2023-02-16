@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {    
     "email":"byronnobrega@hotmail.com",
-    "password": "8kk66uvusm"   
+    "password": "8kiaf9mxtq"   
 }
 
 ### Recover Login
@@ -36,7 +36,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2Et
     "userId":"72161a45-a46b-48c6-990c-caa348ae2b00"
 }
 
-### All Users
+### Return All Users
 GET http://localhost:3003/user/allusers
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
@@ -54,7 +54,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2Et
 ### Create recipe
 POST http://localhost:3003/recipe
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMtNDAyZC04OGNjLWE5MjQ3M2U2MjU4YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjQ4Nzg1NiwiZXhwIjoxNjc2NDkxNDU2fQ.o3PCKrqCxxorYdwz3AWva6bB_Fmxbbf-2rZ9uO6s0JI
 
 {
 	"title": "BOLO DE MACAXEIRA SIMPLES",
@@ -64,7 +64,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2Et
 ### Edit recipe
 PUT http://localhost:3003/recipe/edit
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMtNDAyZC04OGNjLWE5MjQ3M2U2MjU4YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjQ4Nzg1NiwiZXhwIjoxNjc2NDkxNDU2fQ.o3PCKrqCxxorYdwz3AWva6bB_Fmxbbf-2rZ9uO6s0JI
 
 {
     "recipeId":"6b046ac2-6c15-43af-bfbf-f5cf43a342e0",
@@ -81,10 +81,15 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2Et
     "recipeId":"6b046ac2-6c15-43af-bfbf-f5cf43a342e0"
 }
 
-### Return recipe
+### Return Recipe
 GET http://localhost:3003/recipe/1d924d97-0572-4ddd-9017-df33cbb5d1ef
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+### Return All Recipe
+GET http://localhost:3003/recipe/all
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMtNDAyZC04OGNjLWE5MjQ3M2U2MjU4YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjQ4Nzg1NiwiZXhwIjoxNjc2NDkxNDU2fQ.o3PCKrqCxxorYdwz3AWva6bB_Fmxbbf-2rZ9uO6s0JI
 
 ### Criate Followers
 POST http://localhost:3003/user/follow

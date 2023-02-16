@@ -15,12 +15,22 @@
     userId: string,
     userName: string
  }
+
  export interface PostFindDTO{
     id: string,
     title: string,
     description: string,
     createdAt: string
  }
+
+ export interface PostFindAllDTO{
+    id: string,
+    title: string,
+    description: string,
+    createdAt: string
+    authorId: string
+ }
+
  export interface PostFindDBDTO{
     id: string,
     title: string,
@@ -28,11 +38,13 @@
     created_at: Date,
     author_id: string
  }
+
  export interface InpultPostDTO{
     title: string,
     description: string,
     authorId: string
  }
+ 
  export interface InpultDBDTO{
     id:string,
     title: string,
@@ -42,5 +54,9 @@
 
  export interface PostIdDTO{
     id: string,
+    authorId: string
+ }
+ 
+ export interface PostTokenDTO{
     authorId: string
  }

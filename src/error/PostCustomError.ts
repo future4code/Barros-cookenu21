@@ -19,6 +19,11 @@ export class InvalidFindPostId extends CustomError{
         super(400, 'Recipe not found')
     }
 }
+export class InvalidPostAll extends CustomError{ 
+    constructor(){
+        super(400, 'Not the publication')
+    }
+}
 
 export class InvalidPassword extends CustomError{ 
     constructor(){

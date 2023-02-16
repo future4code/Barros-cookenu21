@@ -75,6 +75,44 @@ export class PostBusiness {
     }
   };
 
+  findPostAll = async(input:postDTO.PostTokenDTO):Promise<postDTO.PostFindDTO[]>=> {
+    try {
+
+      const { authorId } = input;
+            
+      if(!authorId) {
+        throw new erros.InvalidFind();
+      }
+      const userId = tokenGenerator.tokenData(authorId);
+      const userToken = await userDatabase.findUserId(userId.id)
+      if(!userToken){
+        throw new erros.Unauthorized();
+      } 
+      const result:postDTO.PostFindDBDTO[] = await postDatabase.findPostAll();
+      if (result.length === 0) {
+        throw new erros.InvalidPostAll();
+     }
+    
+     let post:postDTO.PostFindAllDTO[] =[]
+
+     for (let i = 0; i < result.length; i++) {
+       const formatDate = dateFormatBr(result[i].created_at.toString())
+       post.push({
+        id: result[i].id,
+        title: result[i].title,
+        description: result[i].description,
+        createdAt: formatDate,
+        authorId: result[i].author_id
+       })
+     }
+
+     return post;
+
+    } catch (error:any) {
+      throw new erros.CustomError(400, error.message);
+    }
+  };
+
   feedPost = async(input:Authentication):Promise<postDTO.FeedPostDTO[]> => {
     try {
       const userId = tokenGenerator.tokenData(input.id);
