@@ -43,6 +43,20 @@ export class PostController {
     }
   };
 
+  findPostAll = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const input: postDTO.PostTokenDTO = {
+          authorId : req.headers.authorization as string
+      };
+      
+      const post = await postBusiness.findPostAll(input)
+
+      res.status(200).send( post );
+    } catch (error: any) {
+      res.status(400).send(error.message);
+    }
+  };
+
   feedPost = async(req: Request, res: Response):Promise<void> => {
     try {
       const input:Authentication = {

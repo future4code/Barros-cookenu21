@@ -34,6 +34,19 @@ export class PostDatabase extends BaseDatabase {
     }
   };
 
+  findPostAll = async (): Promise<postDTO.PostFindDBDTO[]> => {
+    try {
+            
+      const result = await PostDatabase.connection
+        .select("*")
+        .from(PostDatabase.TABLE_NAME)
+              
+      return result;
+    } catch (error: any) {
+      throw new erros.CustomError(400, error.message);
+    }
+  };
+
   feedPost = async (input: string[]): Promise<postDTO.PostFindDBDTO[]> => {
     try {
       const [result] = await PostDatabase.connection.raw(
