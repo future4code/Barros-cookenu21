@@ -24,6 +24,9 @@ export class FollowBusiness {
       if (!followingId || !authorId) {
         throw new errors.InvalidInputFollow();
       }
+      if (userId.id === followingId) {
+        throw new errors.InvalidInputFollow();
+      }
 
       const queryUser = await userDatabase.profile(followingId);
       
@@ -38,8 +41,7 @@ export class FollowBusiness {
        
       const id: string = idGenerator.generateId();
       
-      const queryFollowing: followDTO.FollowInputDTO =
-      await followDatabase.findFollowing(input);
+      const queryFollowing: followDTO.FollowInputDTO = await followDatabase.findFollowing(input);
             
       if (queryFollowing) {
         throw new errors.InvalidFollow();
@@ -82,8 +84,7 @@ export class FollowBusiness {
         authorId:userId.id
       }
 
-      const queryFollowing: followDTO.FollowInputDTO =
-      await followDatabase.findFollowing(input);
+      const queryFollowing: followDTO.FollowInputDTO = await followDatabase.findFollowing(input);
             
       if (!queryFollowing) {
         throw new errors.InvalidFollowing();
