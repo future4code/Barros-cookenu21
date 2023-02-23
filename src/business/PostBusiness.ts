@@ -179,9 +179,7 @@ export class PostBusiness {
       }      
       if(postUser.author_id.toString !== token.id.toString){
         throw new erros.InvalidNoAuthorRecipe();        
-      }
-      console.log(token.role);
-      
+      }      
       if (token.role !== UserRole.NORMAL){
         throw new erros.UnauthorizedType()
       }

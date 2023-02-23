@@ -9,6 +9,11 @@ export class InvalidInputFollow extends CustomError{
         super(400, 'Fill in the followingId , authorId')
     }
 }
+export class InvalidFollowed extends CustomError{ 
+    constructor(){
+        super(400, 'User cannot follow himself!')
+    }
+}
 export class InvalidFollowingId extends CustomError{ 
     constructor(){
         super(400, 'User id does not exist!')
