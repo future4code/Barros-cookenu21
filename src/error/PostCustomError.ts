@@ -80,6 +80,11 @@ export class InvalidNoAuthorRecipe extends CustomError{
         super(400, "it is not possible to lie down, you are not the author!")
     }
 }
+export class InvalidRecipeDeleted extends CustomError{ 
+    constructor(){
+        super(400, "You cannot delete if you are not the author or ADMIN!")
+    }
+}
 
 export class InvalidBodyEdit extends CustomError{ 
     constructor(){

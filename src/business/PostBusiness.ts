@@ -205,8 +205,8 @@ export class PostBusiness {
       if(!postUser){
         throw new erros.InvalidNoRecipe();        
       }
-      if(postUser.author_id === token.id && token.role === UserRole.NORMAL){
-        throw new erros.InvalidNoAuthorRecipe();        
+      if(postUser.author_id !== token.id && token.role === UserRole.NORMAL){
+        throw new erros.InvalidRecipeDeleted();        
       }
       
       await postDatabase.deletePost(input);
