@@ -59,7 +59,7 @@ export class InvalidRecoverLogin extends CustomError{
 
 export class InvalidNotEmail extends CustomError{ 
     constructor(){
-        super(400, 'email not found!')
+        super(404, 'email not found!')
     }
 }
 
@@ -70,7 +70,7 @@ export class InvalidLoginPassword extends CustomError{
 }
 export class InvalidProfile extends CustomError{ 
     constructor(){
-        super(400, "Invalid Authorization!")
+        super(401, "Invalid Authorization!")
     }
 }
 export class InvalidProfileUser extends CustomError{ 

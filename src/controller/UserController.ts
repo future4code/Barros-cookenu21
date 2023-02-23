@@ -30,7 +30,7 @@ export class UserController {
 
     const access_token = await userBusiness.login(input);
       
-      res.status(201).send({ access_token });
+      res.status(200).send({ access_token });
     } catch (error: any) {
       res.status(400).send(error.message);
     }
@@ -43,7 +43,7 @@ export class UserController {
       }
 
       const user = await userBusiness.profile(author)
-      res.status(201).send(user);
+      res.status(200).send(user);
     } catch (error:any) {
       res.status(400).send(error.message);
     }
@@ -80,7 +80,7 @@ export class UserController {
         author:req.headers.authorization as string
       }
       await userBusiness.deleteUser(input)
-      res.status(201).send({message: "User deleted!"});
+      res.status(200).send({message: "User deleted!"});
     } catch (error:any) {
       res.status(400).send(error.message);
     }
@@ -93,7 +93,7 @@ export class UserController {
         
       }
       await userBusiness.recoverLogin(input)
-      res.status(201).send({message: "Password sent to email!"});
+      res.status(200).send({message: "Password sent to email!"});
     } catch (error:any) {
       res.status(400).send(error.message);
     }

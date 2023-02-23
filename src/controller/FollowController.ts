@@ -18,8 +18,6 @@ export class FollowController {
     }
   };
 
-  findFollow = () => {};
-
   deleteFollow = async(req:Request, res:Response):Promise<void> => {
       try {
         const input: followDTO.DeleteFollowInputDTO = {
@@ -28,7 +26,7 @@ export class FollowController {
         };
 
         await followBusiness.deleteFollower(input)
-        res.status(201).send({ message: "Unfollowed successfully" });
+        res.status(200).send({ message: "Unfollowed successfully" });
       } catch (error:any) {
         res.status(400).send(error.message);
       }
