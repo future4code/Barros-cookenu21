@@ -176,12 +176,14 @@ export class PostBusiness {
       const postUser = await postDatabase.findPost(id);
       if(!postUser){
         throw new erros.InvalidNoRecipe();        
-      }
-      if(postUser.author_id === token.id){
+      }      
+      if(postUser.author_id.toString !== token.id.toString){
         throw new erros.InvalidNoAuthorRecipe();        
       }
+      console.log(token.role);
+      
       if (token.role !== UserRole.NORMAL){
-        throw new erros.Unauthorized()
+        throw new erros.UnauthorizedType()
       }
       await postDatabase.editPost(input);
 

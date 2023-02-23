@@ -77,12 +77,18 @@ export class InvalidNoRecipe extends CustomError{
 }
 export class InvalidNoAuthorRecipe extends CustomError{ 
     constructor(){
-        super(400, "it is not possible to lie down, you are not the author!")
+        super(400, "You cannot edit, you are not the author!")
     }
 }
 
 export class InvalidBodyEdit extends CustomError{ 
     constructor(){
         super(400, 'Fill in the fields id, title, description')
+    }
+}
+
+export class UnauthorizedType extends CustomError{ 
+    constructor(){
+        super(401, "You cannot edit, you are not NORMAL!")
     }
 }
