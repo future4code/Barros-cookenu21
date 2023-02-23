@@ -16,7 +16,7 @@ export class InvalidFind extends CustomError{
 }
 export class InvalidFindPostId extends CustomError{ 
     constructor(){
-        super(400, 'Recipe not found')
+        super(404, 'Recipe not found')
     }
 }
 export class InvalidPostAll extends CustomError{ 
@@ -57,7 +57,7 @@ export class InvalidLogin extends CustomError{
 
 export class InvalidProfile extends CustomError{ 
     constructor(){
-        super(400, "Invalid Authorization!")
+        super(401, "Invalid Authorization!")
     }
 }
 export class InvalidProfileUser extends CustomError{ 
