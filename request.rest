@@ -64,10 +64,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMt
 ### Edit recipe
 PUT http://localhost:3003/recipe/edit
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMtNDAyZC04OGNjLWE5MjQ3M2U2MjU4YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjQ4Nzg1NiwiZXhwIjoxNjc2NDkxNDU2fQ.o3PCKrqCxxorYdwz3AWva6bB_Fmxbbf-2rZ9uO6s0JI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyZGVlYmQ1LTg0YTItNDcyMS04YmIyLTJmOTI1OTljM2I0OCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzcxNTgwNDIsImV4cCI6MTY3NzE2MTY0Mn0.ZFI5wvgP9a21zD_6j4tgrVHL6q6CViUv6lDgu1NkCKA
 
 {
-    "recipeId":"6b046ac2-6c15-43af-bfbf-f5cf43a342e0",
+    "recipeId":"9d098e42-2301-4dbf-9629-a313a5b256f9",
 	"title": "MACAXEIRA ",
 	"description": "2 kg de macaxeira"
 }
