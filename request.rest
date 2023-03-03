@@ -1,0 +1,115 @@
+
+### Create a new User
+POST http://localhost:3003/signup
+Content-Type: application/json
+
+{
+    "name":"Byron Smith",
+    "email":"byronnobrega@hotmail.com",
+    "password": "1234567",
+    "role": "ADMIN"
+}
+
+### Login User
+GET http://localhost:3003/login
+Content-Type: application/json
+
+{    
+    "email":"byronnobrega@hotmail.com",
+    "password": "8kiaf9mxtq"   
+}
+
+### Recover Login
+GET http://localhost:3003/user/recover_account
+Content-Type: application/json
+
+{    
+    "email":"byronnobrega@hotmail.com"
+}
+
+### Deleted user
+DELETE  http://localhost:3003/user/delete
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+{
+    "userId":"72161a45-a46b-48c6-990c-caa348ae2b00"
+}
+
+### Return All Users
+GET http://localhost:3003/user/allusers
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+### Profile
+GET http://localhost:3003/user/profile
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+### Profile User
+GET http://localhost:3003/user/7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+### Create recipe
+POST http://localhost:3003/recipe
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMtNDAyZC04OGNjLWE5MjQ3M2U2MjU4YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjQ4Nzg1NiwiZXhwIjoxNjc2NDkxNDU2fQ.o3PCKrqCxxorYdwz3AWva6bB_Fmxbbf-2rZ9uO6s0JI
+
+{
+	"title": "BOLO DE MACAXEIRA SIMPLES",
+	"description": "2 kg de macaxeira ralada, 6 ovos, 6 xícaras de açúcar, 6 colheres bem generosa de manteiga, 200 g de coco ralado, 1 pitada de sal, 1 colher de fermento"
+}
+
+### Edit recipe
+PUT http://localhost:3003/recipe/edit
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyZGVlYmQ1LTg0YTItNDcyMS04YmIyLTJmOTI1OTljM2I0OCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzcxNTgwNDIsImV4cCI6MTY3NzE2MTY0Mn0.ZFI5wvgP9a21zD_6j4tgrVHL6q6CViUv6lDgu1NkCKA
+
+{
+    "recipeId":"9d098e42-2301-4dbf-9629-a313a5b256f9",
+	"title": "MACAXEIRA ",
+	"description": "2 kg de macaxeira"
+}
+
+### Deleted recipe
+DELETE  http://localhost:3003/recipe/delete
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+{
+    "recipeId":"6b046ac2-6c15-43af-bfbf-f5cf43a342e0"
+}
+
+### Return Recipe
+GET http://localhost:3003/recipe/1d924d97-0572-4ddd-9017-df33cbb5d1ef
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+### Return All Recipe
+GET http://localhost:3003/recipe/all
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MGI3OWE5LTBjZWMtNDAyZC04OGNjLWE5MjQ3M2U2MjU4YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NjQ4Nzg1NiwiZXhwIjoxNjc2NDkxNDU2fQ.o3PCKrqCxxorYdwz3AWva6bB_Fmxbbf-2rZ9uO6s0JI
+
+### Criate Followers
+POST http://localhost:3003/user/follow
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+{
+    "userToFollowId":"a2deebd5-84a2-4721-8bb2-2f92599c3b48"
+}
+
+### Unfollow
+DELETE http://localhost:3003/user/unfollow
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
+
+{
+    "userToUnfollowId":"7cfcd5b0-59ca-41d6-a4ae-ae2ded0db51c"
+}
+
+### Feed Followers
+GET http://localhost:3003/user/feed
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZmNkNWIwLTU5Y2EtNDFkNi1hNGFlLWFlMmRlZDBkYjUxYyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NzY0MDEzODYsImV4cCI6MTY3NjQwNDk4Nn0.ZsvrdhnRT1NmHpBe2-3xy7MR-CTL1PZQknNerjgwvME
